@@ -21,7 +21,7 @@ import pandas as pd
 import requests
 
 import experiment_lxxxvi_glm_oracle_calibration as lxxxvi
-import experiment_lxxxvii_scaled_glm_oracle_adversarial_calibration as lxxxvii
+import experiment_lxxxvii_case_helpers as lxxxvii
 
 
 ROOT = Path(os.environ.get("MDDC_ROOT", "/root/mddc"))
