@@ -1,0 +1,17 @@
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+env/
+*.pyc
+*.pyo
+*.log
+.env
+.env.*
+*.key
+*.pem
+*.p12
+*.pfx
+_repro_workspace/

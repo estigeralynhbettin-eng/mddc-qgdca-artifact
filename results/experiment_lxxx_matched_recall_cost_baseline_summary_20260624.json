@@ -1,0 +1,51 @@
+{
+  "experiment": "LXXX matched-recall and cost-aware baseline comparison",
+  "generated_at": "2026-06-24 19:13:12 +08:00",
+  "claim_boundary": "Matched-recall false-admission accounting and utility-cost comparison; not human semantic truth or deployment superiority.",
+  "random_seed": 20260624,
+  "control_trials": 200,
+  "control_pairs_per_trial": 1500,
+  "headline": {
+    "cvefixes_mddc_recall": 0.4925797284496369,
+    "cvefixes_false_rates": {
+      "risk_score_tuned": 0.49149333333333334,
+      "coverage_only_tuned": 0.05063666666666666,
+      "random_at_mddc_recall": 0.4926566666666667,
+      "mddc_strict_gate": 0.13757333333333333
+    },
+    "bigvul_mddc_recall": 0.5069945848375451,
+    "bigvul_false_rates": {
+      "risk_score_tuned": 0.5367333333333333,
+      "coverage_only_tuned": 0.020020000000000003,
+      "random_at_mddc_recall": 0.5076666666666667,
+      "mddc_strict_gate": 0.14224333333333333
+    },
+    "utility_mddc": {
+      "pool": "XLVIII utility pool",
+      "policy": "mddc_utility_gate",
+      "threshold": 0.8,
+      "target_true_positive": 33,
+      "n": 80,
+      "total_true": 34,
+      "admitted": 33,
+      "true_positive": 33,
+      "false_admission": 0,
+      "false_negative": 1,
+      "precision": 1.0,
+      "recall": 0.9705882352941176,
+      "false_admissions_per_true_positive": 0.0,
+      "review_load_per_true_positive": 1.0,
+      "policy_note": "full QG-DCA utility gate"
+    }
+  },
+  "outputs": {
+    "dataset_policy_csv": "/root/mddc/empirical_validation/results/experiment_lxxx_matched_recall_dataset_policies_20260624.csv",
+    "control_trials_csv": "/root/mddc/empirical_validation/results/experiment_lxxx_matched_recall_control_trials_20260624.csv",
+    "control_aggregate_csv": "/root/mddc/empirical_validation/results/experiment_lxxx_matched_recall_control_aggregate_20260624.csv",
+    "utility_policy_csv": "/root/mddc/empirical_validation/results/experiment_lxxx_matched_recall_utility_policy_table_20260624.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxx_matched_recall_cost_baseline_summary_20260624.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxx_matched_recall_cost_baseline_20260624.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxx_matched_recall_cost_baseline.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxx_matched_recall_cost_baseline.png"
+  }
+}

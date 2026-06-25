@@ -1,0 +1,10 @@
+scenario,q_multiplier,q_capital,required_s_for_test_0_275,required_s_for_validation_0_325,can_cross_test_with_s_le_1,can_cross_validation_with_s_le_1
+observed_patch_reuse_gain,0.8,0.03136,8.769132653061225,10.363520408163266,False,False
+observed_patch_reuse_gain,1.0,0.0392,7.0153061224489806,8.290816326530614,False,False
+observed_patch_reuse_gain,1.2,0.04704,5.84608843537415,6.909013605442177,False,False
+repo_applicability_upper_bound,0.8,0.11171171171171171,2.461693548387097,2.9092741935483875,False,False
+repo_applicability_upper_bound,1.0,0.13963963963963963,1.9693548387096778,2.32741935483871,False,False
+repo_applicability_upper_bound,1.2,0.16756756756756755,1.6411290322580647,1.9395161290322585,False,False
+property_capital_coefficient,0.8,0.35598336,0.7725080183523185,0.9129640216891036,True,True
+property_capital_coefficient,1.0,0.4449792,0.6180064146818548,0.730371217351283,True,True
+property_capital_coefficient,1.2,0.53397504,0.5150053455682124,0.6086426811260692,True,True

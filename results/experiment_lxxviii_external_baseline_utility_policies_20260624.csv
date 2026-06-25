@@ -1,0 +1,7 @@
+pool,policy,n,admitted,true_positive,false_admission,false_negative,admission_rate,precision,recall,false_admission_rate_among_admitted,validation_debt_per_100_admissions
+XLVIII utility pool,qwen_confidence_ge_0_7,80,80,34,46,0,1.0,0.425,1.0,0.575,57.5
+XLVIII utility pool,deepseek_score_ge_4,80,21,6,15,28,0.2625,0.2857142857142857,0.17647058823529413,0.7142857142857143,71.42857142857143
+XLVIII utility pool,claude_score_ge_4,80,22,4,18,30,0.275,0.18181818181818182,0.11764705882352941,0.8181818181818182,81.81818181818181
+XLVIII utility pool,mean_judge_score_ge_4,80,22,3,19,31,0.275,0.13636363636363635,0.08823529411764706,0.8636363636363636,86.36363636363636
+XLVIII utility pool,structural_core_gate,80,34,34,0,0,0.425,1.0,1.0,0.0,0.0
+XLVIII utility pool,mddc_utility_gate,80,33,33,0,1,0.4125,1.0,0.9705882352941176,0.0,0.0

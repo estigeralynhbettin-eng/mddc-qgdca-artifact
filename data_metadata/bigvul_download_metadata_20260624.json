@@ -1,0 +1,8 @@
+{
+  "source_url": "https://raw.githubusercontent.com/ZeoVan/MSR_20_Code_vulnerability_CSV_Dataset/master/all_c_cpp_release2.0.csv",
+  "transfer_mode": "direct",
+  "target_path": "/root/mddc/empirical_validation/data/raw/bigvul/all_c_cpp_release2.0.csv",
+  "bytes": 56371074,
+  "sha256": "02970f6d07f22dcff4f03983a89b1fd68bebb63289eaa98f4c7e11d6218d907c",
+  "downloaded_at": "2026-06-24 15:20 +08:00"
+}

@@ -1,0 +1,83 @@
+{
+  "experiment": "LXXVI threshold sensitivity and calibration audit",
+  "generated_at": "2026-06-24 12:14:22 +0800",
+  "input_files": {
+    "empirical_validation/results/knowledge_gain_break_even.csv": {
+      "sha256": "ada8622756ab7562bfade6d391a1940db3ccb2b2eb021c00bf93879a936943b5",
+      "bytes": 1340
+    },
+    "empirical_validation/results/experiment_xxv_validation_frontier_curve.csv": {
+      "sha256": "f5ed5ac0334ec6d2081385ea0387ab141f4e2d2468a3bae900b4f49063a03807",
+      "bytes": 4028
+    },
+    "empirical_validation/results/experiment_xxvii_rolling_origin_activation_origins.csv": {
+      "sha256": "d682d72cbbdfcde33715c9b9b6c68318ccf86bed02a95e95b9b9d10d4652455e",
+      "bytes": 1059
+    },
+    "empirical_validation/results/experiment_xxviii_attack_regime_summary.csv": {
+      "sha256": "248a0475ca50c5f451ff9d7a8e4d0621cedb1197cc0fcddc94b3a7c52f66f689",
+      "bytes": 436
+    },
+    "empirical_validation/results/experiment_xxix_budget_activation_summary.csv": {
+      "sha256": "5de46ec5ccfa547240a460cf1b909925e967054f9b1dca860849b32382a628a8",
+      "bytes": 566
+    },
+    "empirical_validation/results/experiment_lxxv_yield_threshold_activation_boundary_summary_20260624.json": {
+      "sha256": "519434e2b9e6440d580ff2b1ecdeeec3a902b58a907d51710f6388f4bb4a17e7",
+      "bytes": 7751
+    }
+  },
+  "recomputed_frontiers": {
+    "test_first_positive_from_xxiv": 0.275,
+    "test_interpolated_from_xxiv": 0.25354056841183303,
+    "test_first_positive_from_xxv": 0.275,
+    "test_interpolated_from_xxv": 0.25354056841183353,
+    "validation_first_positive_from_xxv": 0.325,
+    "validation_interpolated_from_xxv": 0.3166729282895654
+  },
+  "threshold_ranges": {
+    "rolling_origin_validation_range": [
+      0.275,
+      0.575
+    ],
+    "rolling_origin_test_range": [
+      0.25,
+      0.325
+    ],
+    "budget_validation_range": [
+      0.275,
+      0.375
+    ],
+    "budget_test_range": [
+      0.25,
+      0.325
+    ],
+    "regime_validation_range": [
+      0.325,
+      0.35
+    ],
+    "regime_test_range": [
+      0.275,
+      0.275
+    ]
+  },
+  "q_perturbation_headline": {
+    "observed_patch_reuse_gain_even_plus_20pct_crosses_test": false,
+    "repo_upper_even_plus_20pct_crosses_test": false,
+    "property_minus_20pct_required_s_test": 0.7725080183523185,
+    "property_minus_20pct_required_s_validation": 0.9129640216891036
+  },
+  "calibration_protocol": [
+    "Fix training, validation, and test windows before evaluating a new deployment setting.",
+    "Estimate AEC-only and MDDC debt under identical public-task arrivals, budget, seeds, and policy definitions.",
+    "Sweep effective CEC gain on a pre-declared grid and record both the first-positive frontier and the interpolated zero crossing.",
+    "Use the validation frontier, not the test frontier, for activation; periodically recalibrate when threat pressure, resources, or gate quality shifts.",
+    "Treat 0.275 and 0.325 as current-dataset calibrated frontiers, not universal constants."
+  ],
+  "paper_consequence": [
+    "The discrete 0.275 and 0.325 thresholds are reproducible from saved replay curves.",
+    "The interpolated zero crossings are lower, so using first-positive grid points is conservative.",
+    "Budget and rolling-origin sensitivity show that thresholds move with resource allocation and time windows.",
+    "Observed patch reuse remains below threshold even under +20% q_capital perturbation."
+  ]
+}

@@ -1,0 +1,59 @@
+{
+  "title": "MDDC QG-DCA Reproducibility Package: Qualification-Gated Defense-Capital Accounting for Context-Qualified AI Security",
+  "upload_type": "dataset",
+  "description": "Reproducibility package for the MDDC/QG-DCA measurement-paper experiments. The package contains scripts, result tables, figures, reports, pre-registration notes, version-control guardrails, and metadata for qualification-gated defense-capital accounting experiments over ASRDataset/VulGenie-derived artifacts, CVEfixes, BigVul, MegaVul, security-kg, CIRCL vulnerability-scores, KEV/NVD/EPSS replay outputs, and repair-audit pools. The package supports false security-capital admission, validation-debt, matched-recall baseline, operating-curve selection, cost-model sensitivity, provenance-stress testing, internal accounting-component ablation, GLM-assisted candidate-oracle calibration, and activation-frontier analyses. GLM is used only as a candidate predicate generator; qualification remains controlled by objective gates. The package does not claim human semantic ground truth, SOTA repair, or deployment-rate superiority.",
+  "creators": [
+    {
+      "name": "Lv, Yi",
+      "affiliation": "Tongji University"
+    },
+    {
+      "name": "Wang, Cheng",
+      "affiliation": "Tongji University"
+    },
+    {
+      "name": "Jiang, Changjun",
+      "affiliation": "Tongji University"
+    }
+  ],
+  "keywords": [
+    "AI security",
+    "vulnerability repair",
+    "qualification gates",
+    "defense capital",
+    "validation debt",
+    "provenance verification",
+    "accounting ablation",
+    "candidate oracle calibration",
+    "empirical software security"
+  ],
+  "license": "MIT",
+  "version": "2026-06-25",
+  "related_identifiers": [
+    {
+      "identifier": "https://zenodo.org/records/18427597",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "10.5281/zenodo.13118970",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "https://huggingface.co/datasets/s0u9ata/security-kg",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "https://huggingface.co/datasets/hitoshura25/megavul",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    },
+    {
+      "identifier": "https://huggingface.co/datasets/CIRCL/vulnerability-scores",
+      "relation": "isSupplementedBy",
+      "resource_type": "dataset"
+    }
+  ]
+}

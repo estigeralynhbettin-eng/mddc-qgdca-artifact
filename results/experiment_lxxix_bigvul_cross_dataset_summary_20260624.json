@@ -1,0 +1,89 @@
+{
+  "experiment": "LXXIX BigVul cross-dataset gate-accounting replication",
+  "generated_at": "2026-06-24 15:23:20 +08:00",
+  "preregistration": "/root/mddc/empirical_validation/experiment_lxxix_bigvul_preregistration_20260624.md",
+  "input": "/root/mddc/empirical_validation/data/raw/bigvul/all_c_cpp_release2.0.csv",
+  "metadata": "/root/mddc/empirical_validation/data/raw/bigvul/bigvul_download_metadata_20260624.json",
+  "random_seed": 20260624,
+  "token_coverage_threshold": 0.1,
+  "control_trials": 200,
+  "control_pairs_per_trial": 1500,
+  "n_true_pairs": 4432,
+  "true_pair_rates": {
+    "structural_only": {
+      "admitted": 4123,
+      "n": 4432,
+      "rate": 0.9302797833935018,
+      "wilson95": [
+        0.9224033398750485,
+        0.937410978424322
+      ]
+    },
+    "category_gate": {
+      "admitted": 2606,
+      "n": 4432,
+      "rate": 0.5879963898916968,
+      "wilson95": [
+        0.5734356704003686,
+        0.602404698837573
+      ]
+    },
+    "strict_mddc_gate": {
+      "admitted": 2247,
+      "n": 4432,
+      "rate": 0.5069945848375451,
+      "wilson95": [
+        0.4922759885610488,
+        0.5217010664296593
+      ]
+    }
+  },
+  "control_summary": {
+    "any_deranged": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.9297433333333334,
+      "structural_only_max_rate": 0.9473333333333334,
+      "category_gate_mean_rate": 0.4857133333333333,
+      "category_gate_max_rate": 0.5126666666666667,
+      "strict_mddc_gate_mean_rate": 0.08725000000000001,
+      "strict_mddc_gate_max_rate": 0.10666666666666667,
+      "strict_false_admission_reduction_vs_structural_pct": 90.61568963477374
+    },
+    "cross_category": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.9995466666666667,
+      "structural_only_max_rate": 1.0,
+      "category_gate_mean_rate": 0.49638666666666664,
+      "category_gate_max_rate": 0.5393333333333333,
+      "strict_mddc_gate_mean_rate": 0.08827666666666667,
+      "strict_mddc_gate_max_rate": 0.108,
+      "strict_false_admission_reduction_vs_structural_pct": 91.1683296427714
+    },
+    "same_category_different_cve": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.99919,
+      "structural_only_max_rate": 1.0,
+      "category_gate_mean_rate": 0.6583233333333334,
+      "category_gate_max_rate": 0.688,
+      "strict_mddc_gate_mean_rate": 0.14145333333333332,
+      "strict_mddc_gate_max_rate": 0.168,
+      "strict_false_admission_reduction_vs_structural_pct": 85.84319965838996
+    }
+  },
+  "success_condition": {
+    "same_category_reduction_ge_60pct": true,
+    "strict_true_wilson_lower_ge_0_45": true
+  },
+  "claim_boundary": "Patch-context replication on BigVul; not ASR rule semantic correctness and not deployment evidence.",
+  "outputs": {
+    "rows_csv": "/root/mddc/empirical_validation/results/experiment_lxxix_bigvul_cross_dataset_rows_20260624.csv",
+    "controls_csv": "/root/mddc/empirical_validation/results/experiment_lxxix_bigvul_cross_dataset_controls_20260624.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxix_bigvul_cross_dataset_summary_20260624.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxix_bigvul_cross_dataset_replication_20260624.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxix_bigvul_cross_dataset_replication.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxix_bigvul_cross_dataset_replication.png"
+  }
+}

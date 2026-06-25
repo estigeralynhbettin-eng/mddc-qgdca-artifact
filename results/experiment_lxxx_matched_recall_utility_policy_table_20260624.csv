@@ -1,0 +1,8 @@
+pool,policy,threshold,target_true_positive,n,total_true,admitted,true_positive,false_admission,false_negative,precision,recall,false_admissions_per_true_positive,review_load_per_true_positive,policy_note
+XLVIII utility pool,mddc_utility_gate,0.8,33,80,34,33,33,0,1,1.0,0.9705882352941176,0.0,1.0,full QG-DCA utility gate
+XLVIII utility pool,qwen_confidence_tuned,0.9,33,80,34,80,34,46,0,0.425,1.0,1.3529411764705883,2.3529411764705883,qwen_confidence threshold tuned to reach at least MDDC true-positive count
+XLVIII utility pool,deepseek_score_tuned,0.0,33,80,34,80,34,46,0,0.425,1.0,1.3529411764705883,2.3529411764705883,deepseek_score threshold tuned to reach at least MDDC true-positive count
+XLVIII utility pool,claude_score_tuned,1.0,33,80,34,78,34,44,0,0.4358974358974359,1.0,1.2941176470588236,2.2941176470588234,claude_score threshold tuned to reach at least MDDC true-positive count
+XLVIII utility pool,mean_judge_score_tuned,0.5,33,80,34,78,34,44,0,0.4358974358974359,1.0,1.2941176470588236,2.2941176470588234,mean_judge_score threshold tuned to reach at least MDDC true-positive count
+XLVIII utility pool,quality_score_only_tuned,0.8741,33,80,34,55,33,22,1,0.6,0.9705882352941176,0.6666666666666666,1.6666666666666667,quality_score threshold tuned to reach at least MDDC true-positive count
+XLVIII utility pool,structural_core_gate,True,33,80,34,34,34,0,0,1.0,1.0,0.0,1.0,structural fields without full utility gate

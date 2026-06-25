@@ -1,0 +1,15 @@
+negative_mode,policy,policy_label,threshold,true_positive,false_admission,false_negative,admitted,n_true,n_negative,recall,false_admission_rate,precision,review_rate,debt_adjusted_utility,meets_false_constraint,selection_scope
+cross_cwe_different_cve,coverage_only,Coverage only,0.5263157894736842,5920,2,34,5922,5954,5954,0.9942895532415184,0.0003359086328518643,0.999662276258021,0.4973127309371851,0.9669885791064831,True,best_per_policy
+cross_cwe_different_cve,coverage_plus_kg,Coverage+KG,0.44954545454545447,5936,4,18,5940,5954,5954,0.9969768223043333,0.0006718172657037286,0.9993265993265993,0.49882431978501846,0.9692643600940545,True,best_per_policy
+cross_cwe_different_cve,kg_consistency,KG consistency,0.5499999999999999,5954,275,0,6229,5954,5954,1.0,0.04618743701713134,0.9558516615829186,0.5230937185085657,0.8352830030231777,True,best_per_policy
+cross_cwe_different_cve,qgdca_full,QG-DCA full,0.33282652727272727,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_per_policy
+cross_cwe_different_cve,qgdca_no_kg,QG-DCA no KG,0.26043536969696973,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_per_policy
+cross_cwe_different_cve,risk_only,Risk only,1.0,13,13,5941,26,5954,5954,0.002183406113537118,0.002183406113537118,0.5,0.002183406113537118,-0.25393013100436684,True,best_per_policy
+same_cwe_different_cve,coverage_only,Coverage only,0.5294117647058824,5918,4,36,5922,5954,5954,0.9939536446086664,0.0006718172657037286,0.9993245525160419,0.4973127309371851,0.9655609674168626,True,best_per_policy
+same_cwe_different_cve,coverage_plus_kg,Coverage+KG,0.585,5908,6,46,5914,5954,5954,0.9922741014444071,0.001007725898555593,0.9989854582346973,0.49664091367148133,0.962487403426268,True,best_per_policy
+same_cwe_different_cve,kg_consistency,KG consistency,0.9,1299,428,4655,1727,5954,5954,0.21817265703728586,0.07188444743029895,0.7521713954834974,0.1450285522337924,-0.20018894860597916,True,best_per_policy
+same_cwe_different_cve,qgdca_full,QG-DCA full,0.33282652727272727,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_per_policy
+same_cwe_different_cve,qgdca_no_kg,QG-DCA no KG,0.26043536969696973,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_per_policy
+same_cwe_different_cve,risk_only,Risk only,1.0,13,13,5941,26,5954,5954,0.002183406113537118,0.002183406113537118,0.5,0.002183406113537118,-0.25393013100436684,True,best_per_policy
+cross_cwe_different_cve,qgdca_full,QG-DCA full,0.33282652727272727,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_overall
+same_cwe_different_cve,qgdca_full,QG-DCA full,0.33282652727272727,5954,0,0,5954,5954,5954,1.0,0.0,1.0,0.5,0.975,True,best_overall

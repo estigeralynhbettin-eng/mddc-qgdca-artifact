@@ -1,0 +1,35 @@
+cff-version: 1.2.0
+message: "If you use this artifact, please cite the archived DOI once assigned."
+title: "MDDC QG-DCA Reproducibility Package: Qualification-Gated Defense-Capital Accounting for Context-Qualified AI Security"
+version: "2026-06-25"
+date-released: 2026-06-25
+license: MIT
+repository-code: "https://github.com/estigeralynhbettin-eng/mddc-qgdca-artifact"
+authors:
+  - family-names: Lv
+    given-names: Yi
+    affiliation: "Tongji University"
+  - family-names: Wang
+    given-names: Cheng
+    affiliation: "Tongji University"
+  - family-names: Jiang
+    given-names: Changjun
+    affiliation: "Tongji University"
+keywords:
+  - AI security
+  - vulnerability repair
+  - qualification gates
+  - defense capital
+  - validation debt
+  - provenance verification
+  - empirical software security
+abstract: >-
+  Reproducibility package for the MDDC/QG-DCA measurement-paper experiments.
+  The artifact contains scripts, result tables, figures, reports,
+  preregistration notes, version-control guardrails, and dataset metadata for
+  qualification-gated defense-capital accounting experiments. It supports
+  false security-capital admission, validation-debt, matched-recall baseline,
+  operating-curve selection, cost-model sensitivity, provenance-stress testing,
+  internal accounting-component ablation, GLM-assisted candidate-oracle
+  calibration, and activation-frontier analyses. It does not claim human
+  semantic ground truth, SOTA repair, or deployment-rate superiority.

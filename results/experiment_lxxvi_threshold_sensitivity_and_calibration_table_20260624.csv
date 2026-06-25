@@ -1,0 +1,20 @@
+sensitivity_type,label,validation_first_positive,test_first_positive,validation_interpolated,test_interpolated,validation_minus_test,is_validation_conservative,note
+reproduction,XXIV test curve,,0.275,,0.25354056841183303,,,Recomputes the held-out test frontier from knowledge_gain_break_even.csv.
+reproduction,XXV validation/test curve,0.325,0.275,0.3166729282895654,0.25354056841183353,0.04999999999999999,True,Recomputes validation and test first-positive frontiers from the replay curve.
+rolling_origin,paper_fixed::annual_2022_to_2023,0.575,0.325,,,0.24999999999999994,True,pre-holdout diagnostic
+rolling_origin,paper_fixed::annual_2023_to_2024,0.325,0.275,,,0.04999999999999999,True,held-out annual diagnostic
+rolling_origin,paper_fixed::annual_2024_to_2025,0.275,0.25,,,0.025000000000000022,True,post-hoc diagnostic
+rolling_origin,paper_fixed::main_2023_to_2024_2025,0.325,0.275,,,0.04999999999999999,True,main paper hold-out
+rolling_origin,validation_median::annual_2022_to_2023,0.5,0.275,,,0.22499999999999998,True,pre-holdout diagnostic
+rolling_origin,validation_median::annual_2023_to_2024,0.325,0.275,,,0.04999999999999999,True,held-out annual diagnostic
+rolling_origin,validation_median::annual_2024_to_2025,0.3,0.275,,,0.024999999999999967,True,post-hoc diagnostic
+rolling_origin,validation_median::main_2023_to_2024_2025,0.325,0.275,,,0.04999999999999999,True,main paper hold-out
+budget_scale,budget_scale=0.50,0.375,0.325,,,0.04999999999999999,True,effective_monthly_capacity=8.750
+budget_scale,budget_scale=0.75,0.35,0.3,,,0.04999999999999999,True,effective_monthly_capacity=13.125
+budget_scale,budget_scale=1.00,0.325,0.275,,,0.04999999999999999,True,effective_monthly_capacity=17.500
+budget_scale,budget_scale=1.25,0.3,0.25,,,0.04999999999999999,True,effective_monthly_capacity=21.875
+budget_scale,budget_scale=1.50,0.275,0.25,,,0.025000000000000022,True,effective_monthly_capacity=26.250
+attack_regime,all_months,0.325,0.275,,,0.04999999999999999,True,"validation_months=12, test_months=24"
+attack_regime,burst_pressure,0.325,0.275,,,0.04999999999999999,True,"validation_months=2, test_months=11"
+attack_regime,normal_pressure,0.325,0.275,,,0.04999999999999999,True,"validation_months=9, test_months=13"
+attack_regime,ransomware_heavy,0.35,0.275,,,0.07499999999999996,True,"validation_months=3, test_months=4"

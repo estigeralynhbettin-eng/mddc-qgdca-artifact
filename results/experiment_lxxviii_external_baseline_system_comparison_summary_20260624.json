@@ -1,0 +1,75 @@
+{
+  "experiment": "LXXVIII external baseline/system comparison",
+  "generated_at": "2026-06-24 15:14:38 +08:00",
+  "preregistration": "/root/mddc/empirical_validation/experiment_lxxvii_lxxviii_preregistration_20260624.md",
+  "claim_boundary": "False-admission and validation-debt comparison; not deployment superiority.",
+  "random_seed": 20260624,
+  "control_trials": 200,
+  "control_pairs_per_trial": 1500,
+  "headline": {
+    "asr_strict_same_category_false_rate": 0.0,
+    "asr_balanced_same_category_false_rate": 0.17449692307692308,
+    "cvefixes_same_category_cvss_only_false_rate": 0.4794233333333333,
+    "cvefixes_same_category_structural_false_rate": 0.82222,
+    "cvefixes_same_category_mddc_strict_false_rate": 0.13800666666666667,
+    "mddc_false_reduction_vs_cvss_only": 0.7121402796415137,
+    "mddc_false_reduction_vs_structural_only": 0.8321536004151363,
+    "meets_50pct_vs_cvss": true,
+    "meets_50pct_vs_structural": true
+  },
+  "utility_pool": {
+    "qwen_confidence_ge_0_7": {
+      "pool": "XLVIII utility pool",
+      "policy": "qwen_confidence_ge_0_7",
+      "n": 80,
+      "admitted": 80,
+      "true_positive": 34,
+      "false_admission": 46,
+      "false_negative": 0,
+      "admission_rate": 1.0,
+      "precision": 0.425,
+      "recall": 1.0,
+      "false_admission_rate_among_admitted": 0.575,
+      "validation_debt_per_100_admissions": 57.5
+    },
+    "deepseek_score_ge_4": {
+      "pool": "XLVIII utility pool",
+      "policy": "deepseek_score_ge_4",
+      "n": 80,
+      "admitted": 21,
+      "true_positive": 6,
+      "false_admission": 15,
+      "false_negative": 28,
+      "admission_rate": 0.2625,
+      "precision": 0.2857142857142857,
+      "recall": 0.17647058823529413,
+      "false_admission_rate_among_admitted": 0.7142857142857143,
+      "validation_debt_per_100_admissions": 71.42857142857143
+    },
+    "mddc_utility_gate": {
+      "pool": "XLVIII utility pool",
+      "policy": "mddc_utility_gate",
+      "n": 80,
+      "admitted": 33,
+      "true_positive": 33,
+      "false_admission": 0,
+      "false_negative": 1,
+      "admission_rate": 0.4125,
+      "precision": 1.0,
+      "recall": 0.9705882352941176,
+      "false_admission_rate_among_admitted": 0.0,
+      "validation_debt_per_100_admissions": 0.0
+    }
+  },
+  "outputs": {
+    "asr_policies_csv": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_asr_policies_20260624.csv",
+    "cvefixes_policies_csv": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_cvefixes_policies_20260624.csv",
+    "cvefixes_controls_csv": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_cvefixes_controls_20260624.csv",
+    "utility_policies_csv": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_utility_policies_20260624.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_system_comparison_summary_20260624.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxviii_external_baseline_system_comparison_20260624.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxviii_external_baseline_system_comparison.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxviii_external_baseline_system_comparison.png",
+    "cvefixes_controls_aggregate_csv": "/root/mddc/empirical_validation/results/experiment_lxxviii_external_baseline_cvefixes_controls_aggregate_20260624.csv"
+  }
+}

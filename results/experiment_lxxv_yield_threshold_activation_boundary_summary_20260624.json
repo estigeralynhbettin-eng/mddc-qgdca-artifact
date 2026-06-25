@@ -1,0 +1,171 @@
+{
+  "experiment": "LXXV yield-threshold activation boundary",
+  "generated_at": "2026-06-24 11:51:39 +0800",
+  "inputs": [
+    "/root/mddc/empirical_validation/results/experiment_xxiv_qualification_frontier.json",
+    "/root/mddc/empirical_validation/results/experiment_xxv_frontier_aware_controller.json",
+    "/root/mddc/empirical_validation/results/experiment_xxix_budget_activation_robustness.json"
+  ],
+  "formula": "effective_gain = q_capital * s_quality",
+  "thresholds": {
+    "interpolated_break_even": 0.25354056841183303,
+    "heldout_test_first_positive": 0.275,
+    "validation_conservative": 0.325,
+    "budget_conditioned_validation_range": [
+      0.275,
+      0.375
+    ]
+  },
+  "property_path_required_s_quality": {
+    "for_interpolated_break_even": 0.5697807187658053,
+    "for_test_threshold_0_275": 0.6180064146818548,
+    "for_validation_threshold_0_325": 0.730371217351283
+  },
+  "observed_negative_result": {
+    "observed_patch_reuse_gain": 0.0392,
+    "selected_policy": "AEC-only",
+    "always_on_mddc_advantage_pct": -10.700157139582219,
+    "penalty_prevented_vs_always_on": 24.62642240478425,
+    "budget_sensitivity_penalty_prevented_range": [
+      15.755818700583916,
+      27.81821523445214
+    ]
+  },
+  "table": [
+    {
+      "scenario": "observed_patch_reuse_gain",
+      "q_capital": 0.0392,
+      "s_quality": 1.0,
+      "effective_gain": 0.0392,
+      "required_s_for_test_threshold": 7.0153061224489806,
+      "required_s_for_validation_threshold": 8.290816326530614,
+      "crosses_interpolated_threshold": false,
+      "crosses_test_threshold_0_275": false,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "fallback_aec_only",
+      "controller_selected_policy": "AEC-only",
+      "always_on_mddc_advantage_pct": -10.700157139582219,
+      "penalty_prevented_vs_always_on": 24.62642240478425,
+      "note": "Observed same-CWE patch-scope efficiency gain from training artifacts."
+    },
+    {
+      "scenario": "current_all_static_qualified",
+      "q_capital": 0.03153153153153153,
+      "s_quality": 1.0,
+      "effective_gain": 0.03153153153153153,
+      "required_s_for_test_threshold": 8.721428571428573,
+      "required_s_for_validation_threshold": 10.307142857142859,
+      "crosses_interpolated_threshold": false,
+      "crosses_test_threshold_0_275": false,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "fallback_aec_only",
+      "controller_selected_policy": "AEC-only",
+      "always_on_mddc_advantage_pct": -11.099253835913338,
+      "penalty_prevented_vs_always_on": 25.54494385227281,
+      "note": "All generated candidates that pass static qualification, treated as an optimistic upper bound."
+    },
+    {
+      "scenario": "current_knowledge_static_qualified",
+      "q_capital": 0.036036036036036036,
+      "s_quality": 1.0,
+      "effective_gain": 0.036036036036036036,
+      "required_s_for_test_threshold": 7.6312500000000005,
+      "required_s_for_validation_threshold": 9.01875,
+      "crosses_interpolated_threshold": false,
+      "crosses_test_threshold_0_275": false,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "fallback_aec_only",
+      "controller_selected_policy": null,
+      "always_on_mddc_advantage_pct": null,
+      "penalty_prevented_vs_always_on": null,
+      "note": "Knowledge-arm static-qualified capital, treated as an optimistic upper bound."
+    },
+    {
+      "scenario": "repo_applicability_upper_bound",
+      "q_capital": 0.13963963963963963,
+      "s_quality": 1.0,
+      "effective_gain": 0.13963963963963963,
+      "required_s_for_test_threshold": 1.9693548387096778,
+      "required_s_for_validation_threshold": 2.32741935483871,
+      "crosses_interpolated_threshold": false,
+      "crosses_test_threshold_0_275": false,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "fallback_aec_only",
+      "controller_selected_policy": null,
+      "always_on_mddc_advantage_pct": null,
+      "penalty_prevented_vs_always_on": null,
+      "note": "Repository applicability without security qualification, an upper bound rather than admissible capital."
+    },
+    {
+      "scenario": "measured_property_delivery_proxy",
+      "q_capital": 0.4449792,
+      "s_quality": 0.0333,
+      "effective_gain": 0.014817807360000003,
+      "required_s_for_test_threshold": 0.6180064146818548,
+      "required_s_for_validation_threshold": 0.730371217351283,
+      "crosses_interpolated_threshold": false,
+      "crosses_test_threshold_0_275": false,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "fallback_aec_only",
+      "controller_selected_policy": "AEC-only",
+      "always_on_mddc_advantage_pct": -11.95556603514737,
+      "penalty_prevented_vs_always_on": 27.515747238953765,
+      "note": "Measured property-guided delivery proxy from Exp XIII."
+    },
+    {
+      "scenario": "property_test_threshold",
+      "q_capital": 0.4449792,
+      "s_quality": 0.6180064146818548,
+      "effective_gain": 0.275,
+      "required_s_for_test_threshold": 0.6180064146818548,
+      "required_s_for_validation_threshold": 0.730371217351283,
+      "crosses_interpolated_threshold": true,
+      "crosses_test_threshold_0_275": true,
+      "crosses_validation_threshold_0_325": false,
+      "activation_decision": "borderline_test_only",
+      "controller_selected_policy": "AEC-only",
+      "always_on_mddc_advantage_pct": 0.9940020051452858,
+      "penalty_prevented_vs_always_on": 0.0,
+      "note": "Minimum property-path quality required to cross the held-out test frontier."
+    },
+    {
+      "scenario": "property_validation_threshold",
+      "q_capital": 0.4449792,
+      "s_quality": 0.730371217351283,
+      "effective_gain": 0.325,
+      "required_s_for_test_threshold": 0.6180064146818548,
+      "required_s_for_validation_threshold": 0.730371217351283,
+      "crosses_interpolated_threshold": true,
+      "crosses_test_threshold_0_275": true,
+      "crosses_validation_threshold_0_325": true,
+      "activation_decision": "activate_mddc_validation_conservative",
+      "controller_selected_policy": "MDDC",
+      "always_on_mddc_advantage_pct": 3.3317641081328677,
+      "penalty_prevented_vs_always_on": 0.0,
+      "note": "Minimum property-path quality required to cross the validation-period conservative frontier."
+    },
+    {
+      "scenario": "property_full_quality_upper_bound",
+      "q_capital": 0.4449792,
+      "s_quality": 1.0,
+      "effective_gain": 0.4449792,
+      "required_s_for_test_threshold": 0.6180064146818548,
+      "required_s_for_validation_threshold": 0.730371217351283,
+      "crosses_interpolated_threshold": true,
+      "crosses_test_threshold_0_275": true,
+      "crosses_validation_threshold_0_325": true,
+      "activation_decision": "activate_mddc_validation_conservative",
+      "controller_selected_policy": "MDDC",
+      "always_on_mddc_advantage_pct": 8.920347609993081,
+      "penalty_prevented_vs_always_on": 0.0,
+      "note": "Theoretical full-quality property-capital upper bound."
+    }
+  ],
+  "paper_consequence": [
+    "The 0.275 value is the first positive held-out test frontier at which MDDC can beat AEC-only in the replay.",
+    "The 0.325 value is the stricter validation-period activation threshold used to avoid post-hoc activation.",
+    "Current patch-reuse/static-qualified CEC yields remain far below both thresholds; correct controller behavior is AEC-only fallback.",
+    "Property capital can be a viable CEC path only if its downstream quality reaches about 0.618 for test activation and about 0.730 for conservative validation activation.",
+    "This is a bounded activation rule, not a claim that CEC is universally better than AEC."
+  ]
+}

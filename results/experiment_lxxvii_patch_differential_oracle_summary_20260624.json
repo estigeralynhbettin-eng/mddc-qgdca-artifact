@@ -1,0 +1,123 @@
+{
+  "experiment": "LXXVII patch-differential oracle cross-check",
+  "generated_at": "2026-06-24 14:56:33 +08:00",
+  "preregistration": "/root/mddc/empirical_validation/experiment_lxxvii_lxxviii_preregistration_20260624.md",
+  "claim_boundary": "Patch-diff surrogate over public commit patches, not full Semgrep execution over checked-out repositories.",
+  "random_seed": 20260624,
+  "control_trials": 1000,
+  "input_files": {
+    "lxiii_rows": "/root/mddc/empirical_validation/results/experiment_lxiii_objective_semantic_qualification_expanded_rows_20260623.csv",
+    "lxii_rows": "/root/mddc/empirical_validation/results/experiment_lxii_asr_full_rule_capital_audit_rows.csv"
+  },
+  "n_strict_admissions": 99,
+  "patch_available": 90,
+  "patch_available_rate": 0.9090909090909091,
+  "true_oracle_validated": 55,
+  "true_oracle_rate": 0.5555555555555556,
+  "true_oracle_wilson95": [
+    0.4574214280657185,
+    0.6495393261489675
+  ],
+  "success_condition": {
+    "true_rate_ge_0_60": false,
+    "wilson_lower_ge_0_50": false,
+    "cross_category_mean_false_rate_le_0_05": false,
+    "overall_success": false
+  },
+  "stop_condition": {
+    "true_rate_lt_0_35_and_negative_gt_0_10": false,
+    "do_not_run_lxxx": true
+  },
+  "negative_controls": [
+    {
+      "mode": "any_deranged",
+      "trials": 1000,
+      "mean_false_validation_rate": 0.21743434343434345,
+      "max_false_validation_rate": 0.3333333333333333,
+      "mean_false_validations": 21.526,
+      "max_false_validations": 33
+    },
+    {
+      "mode": "cross_category",
+      "trials": 1000,
+      "mean_false_validation_rate": 0.1510808080808081,
+      "max_false_validation_rate": 0.29292929292929293,
+      "mean_false_validations": 14.957,
+      "max_false_validations": 29
+    }
+  ],
+  "by_category": [
+    {
+      "gt_category": "Deserialization of Untrusted Data",
+      "n": 16,
+      "oracle_validated": 11,
+      "patch_available": 16,
+      "oracle_rate": 0.6875
+    },
+    {
+      "gt_category": "Expression Language Injection (JNDI Injection)",
+      "n": 3,
+      "oracle_validated": 0,
+      "patch_available": 2,
+      "oracle_rate": 0.0
+    },
+    {
+      "gt_category": "Improper Input Validation",
+      "n": 1,
+      "oracle_validated": 0,
+      "patch_available": 0,
+      "oracle_rate": 0.0
+    },
+    {
+      "gt_category": "Improper Input Validation (Expression Injection)",
+      "n": 2,
+      "oracle_validated": 1,
+      "patch_available": 2,
+      "oracle_rate": 0.5
+    },
+    {
+      "gt_category": "Path Travelsal",
+      "n": 21,
+      "oracle_validated": 14,
+      "patch_available": 17,
+      "oracle_rate": 0.6666666666666666
+    },
+    {
+      "gt_category": "Resource Exhaustion (Denial of Service)",
+      "n": 8,
+      "oracle_validated": 2,
+      "patch_available": 6,
+      "oracle_rate": 0.25
+    },
+    {
+      "gt_category": "SQL Injection",
+      "n": 8,
+      "oracle_validated": 0,
+      "patch_available": 8,
+      "oracle_rate": 0.0
+    },
+    {
+      "gt_category": "XSS (Cross-Site Scripting)",
+      "n": 25,
+      "oracle_validated": 15,
+      "patch_available": 24,
+      "oracle_rate": 0.6
+    },
+    {
+      "gt_category": "XXE (Improper Restriction of XML External Entity Reference)",
+      "n": 15,
+      "oracle_validated": 12,
+      "patch_available": 15,
+      "oracle_rate": 0.8
+    }
+  ],
+  "outputs": {
+    "rows_csv": "/root/mddc/empirical_validation/results/experiment_lxxvii_patch_differential_oracle_rows_20260624.csv",
+    "controls_csv": "/root/mddc/empirical_validation/results/experiment_lxxvii_patch_differential_oracle_controls_20260624.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxvii_patch_differential_oracle_summary_20260624.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxvii_patch_differential_oracle_20260624.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxvii_patch_differential_oracle.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxvii_patch_differential_oracle.png",
+    "patch_cache": "/root/mddc/artifacts/patch_cache/lxxvii_asr_patch_differential"
+  }
+}

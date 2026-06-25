@@ -1,0 +1,89 @@
+{
+  "experiment": "LXXXIV provenance stress test",
+  "generated_at": "2026-06-25 09:01:05 +08:00",
+  "random_seed": 20260625,
+  "replicates": 200,
+  "sample": {
+    "true_pairs": 5954,
+    "same_cwe_controls": 5954
+  },
+  "thresholds": {
+    "coverage_only": 0.5294117647058824,
+    "qgdca_full": 0.3328265272727272
+  },
+  "key_results": {
+    "clean_coverage_only": {
+      "recall": 0.9939536446086664,
+      "false_admission_rate": 0.0006718172657037286,
+      "precision": 0.9993245525160419,
+      "abstain_rate": 0.0,
+      "debt_adjusted_utility": 0.9904266039637218,
+      "spoofed_negative_admission_rate": 0.0,
+      "dropped_positive_abstain_rate": 0.0
+    },
+    "clean_qgdca_verified_abstain": {
+      "recall": 1.0,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "abstain_rate": 0.0003359086328518643,
+      "debt_adjusted_utility": 0.9999664091367149,
+      "spoofed_negative_admission_rate": 0.0,
+      "dropped_positive_abstain_rate": 0.0
+    },
+    "spoof_10_claimed_provenance_only": {
+      "recall": 1.0,
+      "false_admission_rate": 0.09966577091031241,
+      "precision": 0.9093790295837443,
+      "abstain_rate": 0.0,
+      "debt_adjusted_utility": 0.7010026872690628,
+      "spoofed_negative_admission_rate": 1.0,
+      "dropped_positive_abstain_rate": 0.0
+    },
+    "spoof_10_qgdca_verified_abstain": {
+      "recall": 1.0,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "abstain_rate": 0.0003027376553577427,
+      "debt_adjusted_utility": 0.9999697262344642,
+      "spoofed_negative_admission_rate": 0.0,
+      "dropped_positive_abstain_rate": 0.0
+    },
+    "dropout_50_qgdca_verified_abstain": {
+      "recall": 0.49937940880080617,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "abstain_rate": 0.24914469264360092,
+      "debt_adjusted_utility": 0.3493097917366476,
+      "spoofed_negative_admission_rate": 0.0,
+      "dropped_positive_abstain_rate": 0.9940018057858392
+    },
+    "combined_50_10_claimed_or_coverage": {
+      "recall": 0.997033926771918,
+      "false_admission_rate": 0.10098589183742022,
+      "precision": 0.9080404311902234,
+      "abstain_rate": 0.0,
+      "debt_adjusted_utility": 0.6933347329526369,
+      "spoofed_negative_admission_rate": 1.0,
+      "dropped_positive_abstain_rate": 0.0
+    },
+    "combined_50_10_qgdca_verified_abstain": {
+      "recall": 0.500284682566342,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "abstain_rate": 0.24867568021498151,
+      "debt_adjusted_utility": 0.35048828518642927,
+      "spoofed_negative_admission_rate": 0.0,
+      "dropped_positive_abstain_rate": 0.9940634868479533
+    },
+    "qgdca_false_rate_wilson95_upper_when_zero": 0.0006447972702060423
+  },
+  "claim_boundary": "Noisy/spoofed provenance stress over proxy-label pairs; not deployment repair, not SOTA repair, and not human semantic correctness.",
+  "outputs": {
+    "replicates_csv": "/root/mddc/empirical_validation/results/experiment_lxxxiv_provenance_stress_replicates_20260625.csv",
+    "summary_csv": "/root/mddc/empirical_validation/results/experiment_lxxxiv_provenance_stress_summary_20260625.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxxiv_provenance_stress_summary_20260625.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxxiv_provenance_stress_test_20260625.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxiv_provenance_stress_test.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxiv_provenance_stress_test.png"
+  }
+}

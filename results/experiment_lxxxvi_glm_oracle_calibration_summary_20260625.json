@@ -1,0 +1,37 @@
+{
+  "experiment": "LXXXVI GLM-assisted candidate oracle calibration",
+  "generated_at": "2026-06-25 10:25:47 +08:00",
+  "glm_model": "glm-4.7",
+  "endpoint": "https://open.bigmodel.cn/api/paas/v4/chat/completions",
+  "sample": {
+    "n_total": 40,
+    "objective_positive": 20,
+    "objective_negative": 20,
+    "random_seed": 20260625
+  },
+  "metrics": {
+    "glm_json_parse_rate": 1.0,
+    "glm_non_vacuous_rate": 1.0,
+    "glm_candidate_gate_positive_recall": 0.95,
+    "glm_only_false_candidate_rate_on_negatives": 0.5,
+    "qgdca_qualified_positive_recall": 0.95,
+    "qgdca_false_admission_rate_on_negatives": 0.0,
+    "qgdca_qualified_total": 19,
+    "glm_candidate_total": 29
+  },
+  "usage": {
+    "prompt_tokens": 28409,
+    "completion_tokens": 77506,
+    "total_tokens": 105915,
+    "api_calls": 40,
+    "successful_calls": 40
+  },
+  "claim_boundary": "GLM is only a candidate oracle generator. Qualification is decided by objective patch-differential surrogate gates; this is not deployment, native/dynamic all-gate, SOTA repair, or human semantic correctness.",
+  "outputs": {
+    "rows_csv": "/root/mddc/empirical_validation/results/experiment_lxxxvi_glm_oracle_calibration_rows_20260625.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxxvi_glm_oracle_calibration_summary_20260625.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxxvi_glm_oracle_calibration_20260625.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxvi_glm_oracle_calibration.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxvi_glm_oracle_calibration.png"
+  }
+}

@@ -1,0 +1,50 @@
+﻿[
+    {
+        "project":  "MDDC",
+        "dataset":  "s0u9ata/security-kg",
+        "local_path":  "D:\\lunwen\\datasets\\huggingface_security\\mddc\\security-kg",
+        "hf_url":  "https://huggingface.co/datasets/s0u9ata/security-kg",
+        "license":  "apache-2.0",
+        "hf_rows":  "54,701,716",
+        "file_count":  327,
+        "bytes":  998683971,
+        "gib":  0.93,
+        "git_commit":  "0d0c97de7ae46602359738ec1a6ed4aea7278770",
+        "lfs_files":  28,
+        "transfer_mode":  "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use":  "security knowledge graph / ATT\u0026CK-CAPEC-CWE-CVE-EPSS-KEV-GHSA-Sigma-ExploitDB-OSV triples",
+        "downloaded_at":  "2026-06-24 Asia/Shanghai"
+    },
+    {
+        "project":  "MDDC",
+        "dataset":  "hitoshura25/megavul",
+        "local_path":  "D:\\lunwen\\datasets\\huggingface_security\\mddc\\megavul",
+        "hf_url":  "https://huggingface.co/datasets/hitoshura25/megavul",
+        "license":  "gpl-3.0",
+        "hf_rows":  "671,797",
+        "file_count":  38,
+        "bytes":  507149993,
+        "gib":  0.472,
+        "git_commit":  "dbca97fe510045492baa1592f934ae7b44f8ffe1",
+        "lfs_files":  2,
+        "transfer_mode":  "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use":  "function-level vulnerability records / CVEfixes-compatible schema",
+        "downloaded_at":  "2026-06-24 Asia/Shanghai"
+    },
+    {
+        "project":  "MDDC",
+        "dataset":  "CIRCL/vulnerability-scores",
+        "local_path":  "D:\\lunwen\\datasets\\huggingface_security\\mddc\\vulnerability-scores",
+        "hf_url":  "https://huggingface.co/datasets/CIRCL/vulnerability-scores",
+        "license":  "cc-by-4.0",
+        "hf_rows":  "719,410",
+        "file_count":  38,
+        "bytes":  615695488,
+        "gib":  0.573,
+        "git_commit":  "83fa1ee916a8e03479b1abf98b3aa08b99fbfa6e",
+        "lfs_files":  2,
+        "transfer_mode":  "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use":  "vulnerability severity and CVSS score records",
+        "downloaded_at":  "2026-06-24 Asia/Shanghai"
+    }
+]

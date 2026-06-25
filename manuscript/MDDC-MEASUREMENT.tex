@@ -1,0 +1,700 @@
+﻿\documentclass[lettersize,journal]{IEEEtran}
+\usepackage{amsmath,amsfonts}
+\usepackage{algorithmic}
+\usepackage{algorithm}
+\usepackage{array}
+\usepackage[caption=false,font=normalsize,labelfont=sf,textfont=sf]{subfig}
+\usepackage{textcomp}
+\usepackage{stfloats}
+\usepackage{url}
+\usepackage{verbatim}
+\usepackage{graphicx}
+\usepackage{cite}
+\usepackage{tikz}
+\usepackage{pgfplots}
+\pgfplotsset{compat=1.16}
+\hyphenation{op-tical net-works semi-conduc-tor IEEE-Xplore}
+% updated with editorial comments 8/9/2021
+
+% 调整浮动体（图片/表格）与正文的间距
+\setlength{\textfloatsep}{5pt plus 1.0pt minus 2.0pt}
+\setlength{\floatsep}{5pt plus 1.0pt minus 2.0pt}
+\setlength{\intextsep}{5pt plus 1.0pt minus 2.0pt}
+
+% 调整公式上下的间距
+\AtBeginDocument{
+  \setlength{\abovedisplayskip}{4pt plus 1pt minus 1pt}
+  \setlength{\belowdisplayskip}{4pt plus 1pt minus 1pt}
+  \setlength{\abovedisplayshortskip}{2pt plus 1pt}
+  \setlength{\belowdisplayshortskip}{2pt plus 1pt}
+}
+
+
+
+
+
+
+\begin{document}
+
+\title{MDDC: Qualification-Gated Defense-Capital Accounting for Context-Qualified AI Security}
+
+\author{Yi Lv,
+        Cheng Wang,~\IEEEmembership{Senior Member,~IEEE,}
+        and Changjun Jiang,~\IEEEmembership{Fellow,~IET}%
+\thanks{Yi Lv is with the Department of Computer Science and Technology, Tongji University, Shanghai 201804, China (e-mail: lvyi@tongji.edu.cn).}
+\thanks{Cheng Wang and Changjun Jiang are with the Department of Computer Science and Technology, Tongji University, Shanghai 201804, China, and also with the Key Laboratory of Embedded System and Service Computing, Ministry of Education, Tongji University, Shanghai 201804, China (e-mail: cwang@tongji.edu.cn; cjjiang@tongji.edu.cn).}}
+
+\markboth{IEEE Transactions on Information Forensics and Security,~Vol.~XX, No.~X, Month~2026}%
+{Lv \MakeLowercase{\textit{et al.}}: MDDC: Qualification-Gated Defense-Capital Accounting}
+
+\maketitle
+
+\begin{abstract}
+Modern security teams receive vulnerability reports, upstream patches, code context, validation feedback, and AI-generated candidates faster than they can decide which artifacts are safe to reuse. Multi-Dimensional Dual-Cycle (MDDC) is used here as the state model for this admission problem. Its technical core is qualification-gated defense-capital accounting (QG-DCA), an admission method that separates admitted defense capital from validation debt. MDDC preserves its four-dimensional defense space--space, time, knowledge, and architecture--and operationalizes it through five measurable state variables: threat pressure, remediation debt, validation debt, qualified knowledge capital, and resource allocation. The AEC/CEC dual-cycle view motivates the shared state, but this paper evaluates the artifact-admission method rather than claiming closed-loop deployment.
+
+We evaluate MDDC with public vulnerability intelligence and repair artifacts from NVD, CISA KEV, EPSS, VulGenie/ASRDataset, CVEfixes, BigVul, and replayable repair pools. The central empirical result is not that stronger models automatically repair vulnerabilities. It is that ungated context creates false security capital. Repository applicability overstates qualified repair delivery by $4.43\times$, and an abstention gate prevents 22/80 false-confident deliveries. On ASRDataset, the strict hard-capital gate admits 99/131 reference-agreeing rules and admits 0 controls in a 5,000-trial same-category different-rule stress test. On CVEfixes, the strict gate admits 6240/12668 reference-agreeing patch-context pairs and reduces same-category false admissions by 83.2\% relative to structural-only admission. On BigVul, the same accounting pattern admits 2247/4432 reference-agreeing pairs and reduces same-category structural false admissions by 85.8\%. At matched recall, tuned coverage-only baselines dominate the fixed strict gate. QG-DCA therefore reports the full operating curve and selects the operating point under an explicit validation-debt cost. Under the declared cost model, the selected points are coverage-only thresholds with recall 0.513 and false-admission rate 0.061 on CVEfixes, and recall 0.579 and false-admission rate 0.032 on BigVul. A sensitivity sweep over 875 cost models per dataset again selects coverage-only in 875/875 cases on both datasets. Thus, QG-DCA is evaluated as an operating-point accounting method rather than an unconditional classifier.
+
+The boundary is also explicit. A patch-differential oracle cross-check validates 55/99 strict ASR admissions, with Wilson 95\% CI 0.457--0.650, and has a 15.1\% cross-category false-validation rate, so it is reported as boundary evidence rather than behavioral proof. The frozen 30-task all-gate repair run yields 1/30 primary security-qualified delivery and 0/30 original deployment-qualified deliveries; one same-candidate recovered-native all-gate case is reported separately as post-hoc existence evidence. The KEV activation analysis yields calibrated frontiers of 0.275 and 0.325, reproduced from saved replay curves, showing when CEC activation should fall back to AEC-only. MDDC therefore claims a reproducible measurement and admission-control method for AI defense capital, not automatic AI repair or deployment-level superiority.
+\end{abstract}
+
+\begin{IEEEkeywords}
+AI security, vulnerability repair, qualification gates, validation debt, defense capital, empirical software security.
+\end{IEEEkeywords}
+
+\section{Introduction}
+Security operations increasingly face a qualification problem. Public exploit intelligence, upstream patches, repository context, validation feedback, and model-generated candidates arrive faster than organizations can validate them. The binding constraint is therefore not only generation capacity. It is admission capacity: deciding which artifacts are safe enough to become reusable defense knowledge.
+
+This distinction matters because AI-assisted security tools can raise both capability and debt. A model can generate a plausible patch, a rule, or an oracle quickly, but each candidate still needs evidence. If a system counts repository-applicable patches, retrieved examples, or confident model outputs as security capital before they pass a security gate, it hides validation debt as progress. Our experiments show that this failure mode is not hypothetical: repository applicability overstates qualified security delivery by $4.43\times$ in the repair pool, and a two-state deliver/reject policy would count 22/80 missing-evidence cases as deliveries.
+
+This paper studies admission as a first-class security measurement problem. We propose Multi-Dimensional Dual-Cycle (MDDC) as a measurement method for \emph{context-qualified defense capital}. MDDC preserves the original four-dimensional dual-cycle idea. Space captures attack surfaces and resource distribution. Time captures vulnerability arrival, repair delay, and recovery. Knowledge captures reusable properties, rules, and oracles. Architecture captures the AEC/CEC coupling, routing policy, validation gate, and feedback topology. These dimensions are operationalized by five measurable variables: threat pressure, remediation debt, validation debt, qualified knowledge capital, and resource allocation.
+
+The technical core inside MDDC is \emph{qualification-gated defense-capital accounting} (QG-DCA). QG-DCA is not a particular LLM, patch generator, scanner, or triage score. It is an admission and accounting layer around such tools. Given a candidate artifact, its context, and its evidence, QG-DCA decides whether the artifact updates qualified defense capital, is rejected, or remains validation debt.
+
+The core invariant is simple. An AI-produced patch, rule, oracle, or routing decision is counted as knowledge capital only after explicit qualification gates pass. Otherwise it remains rejected output or validation debt. This framing separates MDDC from generic LLM patch repair. The paper does not ask whether a stronger model can produce plausible patches. It asks when context can be transformed into qualified security objects, when it must be rejected or abstained, and how much operational debt is created by counting the wrong objects.
+
+The paper makes three contributions:
+\begin{enumerate}
+    \item \textbf{Measurement problem:} We formulate AI defense admission as a defense-capital accounting problem over the MDDC state space, where generated artifacts and admitted capital are different objects.
+    \item \textbf{Method:} We introduce QG-DCA, a three-action admission method that maps candidate artifacts to \textsc{Admit}, \textsc{Reject}, or \textsc{Abstain}, updates $H_q(t)$ only after gates pass, and recalibrates CEC activation frontiers for new deployments.
+    \item \textbf{Evidence:} We show across ASRDataset, CVEfixes, BigVul, and repair audit pools that QG-DCA exposes false security-capital admission, compares operating points against structural, score, confidence, and risk-only baselines, and selects lower-debt policies when a fixed gate is dominated.
+\end{enumerate}
+
+The empirical conclusion is deliberately conditional. MDDC does not establish deployment-level repair superiority. Instead, it provides a reproducible gate chain that shows where context helps, where it fails, and when admission should stop.
+
+\section{Related Work}
+Moving Target Defense and endogenous security study how architectural diversity and dynamic execution can reduce attacker advantage \cite{ref7,ref5}. These approaches usually emphasize runtime uncertainty and heterogeneity. MDDC keeps the architectural viewpoint, but it shifts the empirical question from runtime diversity to knowledge admission: which artifacts can safely update the defense state?
+
+DevSecOps and security automation improve scanning, testing, and deployment workflows \cite{rw_devsecops_scan,rw_supplychain}. These pipelines already contain many gates, such as build checks, static analyzers, and regression tests. MDDC adds a measurement layer over such gates. It treats missing evidence as an explicit outcome and separates repository applicability from security qualification.
+
+Recent AI repair, property generation, and agentic verification systems show that large models can generate patches, rules, and formal properties under favorable conditions \cite{ref_patchagent,ref_propertygpt}. These systems motivate the knowledge-generation side of MDDC, but they do not remove the need for admission control. A generated object is not defense capital because it is fluent or because it resembles an upstream patch. It must pass evidence gates that are appropriate to the object type.
+
+The closest conceptual neighbors are security-measurement and empirical software-security studies that distinguish observable proxies from true outcomes. Defect-prediction and bug-report studies show that code metrics and issue reports can support prioritization, but also that transfer, label quality, and misclassification can distort conclusions \cite{ref_menzies_defect,ref_zimmermann_cpdp,ref_bettenburg_bugreport,ref_herzig_misclassification}. Vulnerability-prediction studies reach a similar boundary: complexity, churn, developer activity, or text features may identify risky components, but false positives and actionability remain central concerns \cite{ref_shin_vulnerability_metrics,ref_morrison_vpm}. MDDC follows this measurement tradition but changes the measured object. It does not predict vulnerable files. It measures whether generated patches, rules, or oracles have enough evidence to update $H_q(t)$. The contribution is therefore not a new model prompt, patch generator, or scanner. It is a qualification-gated accounting system for deciding when AI-generated security artifacts may become defense capital.
+
+\section{MDDC State Model and QG-DCA Method}
+\subsection{State Model: Dimensions and Variables}
+MDDC originates from a two-loop view. The observation side records threat pressure, unresolved vulnerability debt, and failed validations. The generation side proposes patches, rules, oracles, and routing decisions from code context, patch context, protocol/API context, validation feedback, and historical rule memory. This paper evaluates the admission method that sits between those sides. It does not claim that a live closed-loop AEC/CEC system has been deployed.
+
+MDDC uses four conceptual dimensions and five operational variables. Table~\ref{tab:dimension_mapping_short} gives the mapping.
+
+\begin{table}[!t]
+\caption{MDDC conceptual dimensions and operational variables}
+\label{tab:dimension_mapping_short}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.75in}|>{\raggedright\arraybackslash}p{1.2in}|>{\raggedright\arraybackslash}p{1.05in}|}
+\hline
+\textbf{Dimension} & \textbf{Operational variables} & \textbf{Evidence source} \\
+\hline
+Space & Threat distribution; resource allocation & NVD, KEV, EPSS, audit pool \\
+\hline
+Time & Remediation debt; validation debt; recovery delay & KEV replay, gate logs \\
+\hline
+Knowledge & Qualified properties, rules, oracles; yield $\epsilon$ & CVEfixes, VulGenie, ASRDataset \\
+\hline
+Architecture & Control topology; routing; gate order & Replay and gate-ordering experiments \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+At month $t$, the shared state is
+\begin{equation}
+s_t = (P_t, D^R_t, D^V_t, H_t, U_t),
+\end{equation}
+where $P_t$ is threat pressure, $D^R_t$ is remediation debt, $D^V_t$ is validation debt, $H_t$ is qualified knowledge capital, and $U_t$ is resource allocation.
+
+The observation side publishes threat pressure, failed validations, and high-risk unresolved tasks. The generation side publishes candidate properties, rules, oracles, and repair candidates. The qualification invariant is:
+\begin{equation}
+\Delta H_t > 0 \Rightarrow G(a_t, c_t, e_t)=1,
+\end{equation}
+where $G$ is an explicit gate over the artifact $a_t$, its context $c_t$, and evidence $e_t$. If $G=0$, the artifact is rejected or left as validation debt. If evidence is insufficient, the controller abstains.
+
+Fig.~\ref{fig:qgdca_schematic} shows the role of QG-DCA inside MDDC. AEC observations and CEC generators provide candidate artifacts and context. QG-DCA then applies artifact-specific evidence gates and emits one of three accounting decisions. LLMs, static analyzers, or human procedures can generate candidates, but none of them directly update $H_q(t)$. The update happens only after the admission layer validates the evidence.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_qgdca_schematic.pdf}
+\caption{QG-DCA inside the MDDC framework. Candidate patches, rules, oracles, and routing decisions are generated from AEC observations, CEC generators, and context memory. The QG-DCA admission layer separates admitted defense capital from rejected output and validation debt. This is an accounting and control method, not a standalone LLM.}
+\label{fig:qgdca_schematic}
+\end{figure*}
+
+\subsection{Method: QG-DCA Admission Operator}
+MDDC exposes three admission actions:
+\begin{equation}
+\pi(s_t,a_t) \in \{\textsc{Admit}, \textsc{Reject}, \textsc{Abstain}\}.
+\end{equation}
+\textsc{Admit} updates $H_t$. \textsc{Reject} blocks unsafe or irrelevant artifacts. \textsc{Abstain} records missing evidence without pretending that a delivery succeeded. This third action is essential in security measurement, because missing validation evidence is not success.
+
+Different artifact types require different evidence. Table~\ref{tab:gate_chain_short} summarizes the gates used in this paper. The table is also the main accounting rule: each artifact is counted only at the strongest gate that it passes.
+
+\begin{table}[!t]
+\caption{Formal QG-DCA admission operator}
+\label{tab:qgdca_definition}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.12}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.05in}|>{\raggedright\arraybackslash}p{2.25in}|}
+\hline
+\textbf{Element} & \textbf{Definition} \\
+\hline
+Input & State $s_t=(P_t,D^R_t,D^V_t,H_t,U_t)$, candidate artifact $a_t$, context $c_t$, and evidence bundle $e_t$ \\
+\hline
+Gate predicate & $G_k(a_t,c_t,e_t)=1$ only if the artifact-specific evidence gate $k$ passes \\
+\hline
+Action & $\pi(s_t,a_t)\in\{\textsc{Admit},\textsc{Reject},\textsc{Abstain}\}$ \\
+\hline
+Capital update & $H_q(t+1)=H_q(t)+w(a_t)$ only under \textsc{Admit}; otherwise $\Delta H_q=0$ \\
+\hline
+Debt update & Rejected artifacts are recorded as unsafe/irrelevant output; missing evidence increments validation debt $D^V_t$ \\
+\hline
+Operating point & Gate thresholds are selected by validation-window replay and must report recall, false admission, precision, and validation-debt cost \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+For CEC activation, MDDC also uses a yield frontier:
+\begin{equation}
+\hat{g}_{CEC}=q_{capital}\cdot s_{quality}.
+\end{equation}
+Here $q_{capital}$ is the qualified-capital coefficient and $s_{quality}$ is the downstream quality of that capital. A CEC path is activated only when $\hat{g}_{CEC}$ crosses a calibrated frontier; otherwise the controller falls back to AEC-only, rejects, or abstains. The frontier is estimated from a fixed validation window by sweeping effective CEC gain under the same task arrivals, budget, seeds, and policy definitions. A deployment using different pressure, resources, or gates must recalibrate the frontier rather than reuse the paper's numeric thresholds. This rule prevents the dual-cycle architecture from becoming an always-on generator of validation debt.
+
+The recalibration procedure is part of the method. For a new deployment, the operator first freezes a validation window, the task-arrival stream, the available resource budget, the gate chain, and the random seeds used for replay. It then estimates $q_{capital}$ from the observed qualified-capital yield in that window and sweeps a grid of candidate effective CEC gains while replaying the same arrivals and budgets. The activation frontier is the smallest grid value that produces a positive held-out security-efficiency margin, or a conservative validation-period margin if the deployment requires stricter control. Rolling-origin and budget-sensitivity checks then report how much the frontier moves. Only after this recalibration can $q_{capital}s_{quality}$ be compared with the local frontier. Thus, the reported 0.275 and 0.325 values are reproducible calibration outputs for our data and policy, not universal constants.
+
+For admission gates, QG-DCA also evaluates an operating curve. For a policy threshold $\theta$, let $R_\theta$ be true-pair recall, $F_\theta$ the same-category false-admission rate, $L_\theta$ the review load, and $\alpha$ a false-admission budget. The selected operating point is
+\begin{equation}
+\theta^*=\arg\max_{\theta:F_\theta\leq \alpha}
+\left(R_\theta-c_FF_\theta-c_M(1-R_\theta)-c_LL_\theta\right).
+\end{equation}
+This rule is intentionally policy-neutral. If a simpler coverage-only threshold has lower validation debt under the declared cost model, QG-DCA selects that threshold rather than defending a fixed strict gate.
+
+The cost model is also auditable. In the sensitivity check, $c_F$, $c_M$, $c_L$, and $\alpha$ are swept over 875 combinations per dataset. The selected policy is reported for each combination. This prevents numeric cost constants from becoming hidden assumptions: if the selected policy changes under a plausible cost region, that instability is part of the accounting result rather than an exception.
+
+\begin{table*}[!t]
+\caption{Qualification gates used to admit context-derived defense capital}
+\label{tab:gate_chain_short}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.1in}|>{\raggedright\arraybackslash}p{2.15in}|>{\raggedright\arraybackslash}p{2.2in}|>{\raggedright\arraybackslash}p{1.4in}|}
+\hline
+\textbf{Artifact} & \textbf{Candidate source} & \textbf{Admission evidence} & \textbf{Failure state} \\
+\hline
+Patch & LLM repair, RAG repair, property-guided repair & Applies to repository; passes task-specific static oracle; for deployment claims, also passes native and dynamic gates & Patch application debt, static security debt, native/dynamic debt \\
+\hline
+Rule or property & Upstream patch, ASR rule memory, generated property & Structural fields present; parent/upstream discrimination where available; semantic or oracle-based admission & Candidate rule, patch pattern, under-specified rule \\
+\hline
+Oracle & Patch diff, code slice, existing tests, protocol/API context & Executable predicate; parent fails and upstream passes; vacuity filtering & Missing evidence, vacuous oracle, exact-diff overfit \\
+\hline
+Routing decision & Frozen metadata policy & Pre-specified policy evaluated on held-out tasks; cost and abstention recorded & Validation debt, abstention, failed frontier crossing \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\section{Data and Protocol}
+The empirical evidence uses public and reproducible sources: CVEfixes for vulnerability-fixing commits \cite{ref_cvefixes}, NVD CVE metadata \cite{ref_nvd}, CISA KEV \cite{ref_kev}, EPSS \cite{ref_epss}, VulGenie/ASRDataset artifacts, and BigVul \cite{ref_bigvul}. The default public replay window is 2018--2025. The repair audit pool contains 80 replayable tasks with repository, static, native, or dynamic gates depending on evidence availability. We do not use NVD \texttt{lastModified} as a patch time and do not treat CISA due dates as actual remediation dates.
+
+\begin{table*}[!t]
+\caption{Public data and artifact provenance used by the measurement chain}
+\label{tab:data_provenance}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{2.1in}|>{\raggedright\arraybackslash}p{1.9in}|>{\raggedright\arraybackslash}p{2.1in}|}
+\hline
+\textbf{Source} & \textbf{Provenance} & \textbf{Fields used} & \textbf{Role in this paper} \\
+\hline
+VulGenie/ASRDataset & Zenodo record 18427597; ASRDataset.zip and VulGenie.zip; local manifest records checksums & Ground-truth XML rules, output rules, vulnerability categories, API/rule identifiers, comments & ASR rule-capital admission and negative controls \\
+\hline
+CVEfixes & CVEfixes v1.0.8, Zenodo, DOI in \cite{ref_cvefixes} & CVE/CWE metadata, vulnerability-fixing commits, commit messages, patch text, project identifiers & Patch-context replication, operating-curve comparison, repair-task source \\
+\hline
+BigVul & MSR'20 BigVul dataset \cite{ref_bigvul}; CSV file \texttt{all\_c\_cpp\_release2.0.csv}; SHA256 begins \texttt{02970f6d07f2}, full hash in metadata & CVE/CWE metadata, pre/post functions, commit identifiers, patch-line text & LXXIX third-dataset replication of gate-accounting and false-admission reduction \\
+\hline
+NVD, CISA KEV, EPSS & Official public feeds \cite{ref_nvd,ref_kev,ref_epss} & CVE publication metadata, CVSS/EPSS scores, KEV dates, remediation-window metadata & Threat-pressure replay, remediation-debt proxy, activation-frontier calibration \\
+\hline
+Repair audit pools & CVEfixes-derived replay tasks and saved gate logs & Apply, static, native, dynamic, security-oracle, and abstention outcomes & Metric inflation, deployment boundary, recovered-native existence, and utility-gate baselines \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+A candidate can be counted only at the strongest gate it passes. Repository application alone is not qualified delivery. A static oracle checks a task-specific security predicate. A native gate checks project tests or build-level regressions. A dynamic oracle checks behavior. A rule or property can update $H_q(t)$ only after structural and semantic or oracle-based admission.
+
+The protocol has three safeguards. First, every positive claim is paired with a boundary condition. Static-oracle success is not deployment success. Structural rule admission is not semantic correctness. Second, missing evidence is recorded as \textsc{Abstain}, not as failure or success. Third, routing evidence is restricted to the pre-specified 5/14 held-out replay.
+
+For ASR rule capital, the deterministic gate uses public artifact fields and XML rule content. The reference side is the ASRDataset GroundTruth XML, and the candidate side is the corresponding ASRDataset output rule; the gate therefore measures agreement against a public benchmark reference rather than author-created expected answers. A candidate must have an output rule, matching vulnerability category, exact rule or method identity, and a checkable conditional or protection plus security/vulnerability text. Context support requires condition overlap through argument, parameter, conditional type, or protection call, plus security-comment, vulnerability-comment, or security-token overlap. The strict gate additionally rejects unresolved signatures and is used as one hard $H_q(t)$ admission operating point. Balanced and lenient gates are reported only as candidate-pool and sensitivity evidence. Paid or model-produced semantic labels are excluded from the gate and used only for post-hoc agreement checks.
+
+For independent replication, the same accounting pattern is applied to CVEfixes rather than ASRDataset. The reference side is public CVE/CWE text, and the candidate side is the corresponding commit message, security keywords, and patch diff. Because CVEfixes does not provide ASR rule XML, this is a patch-context benchmark-agreement replication, not a human semantic label or deployment gate. The third-dataset replication repeats the same admission-accounting logic on BigVul, using vulnerable/fixed function context and CVE/CWE metadata. A patch-differential oracle cross-check is reported separately as boundary evidence because a patch-diff surrogate can validate whether a rule aligns with upstream changes, but it cannot prove full behavioral correctness.
+
+The main research questions are:
+\begin{itemize}
+    \item \textbf{RQ1:} Can context become qualified rule, property, or oracle capital?
+    \item \textbf{RQ2:} Why are qualification gates necessary?
+    \item \textbf{RQ3:} Do raw patches, RAG, or stronger models cross the knowledge-gain frontier?
+    \item \textbf{RQ4:} What boundary appears under real vulnerability pressure when qualification yield is low?
+    \item \textbf{RQ5:} Does the gate policy deliver deployable repairs?
+\end{itemize}
+
+Table~\ref{tab:measurement_trace_short} shows how the five state variables are instantiated in the empirical gate chain. This table is the short-paper substitute for the longer control-model derivation in the full version.
+
+\begin{table*}[!t]
+\caption{Operational measurement trace from context arrival to qualified capital}
+\label{tab:measurement_trace_short}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{1.1in}|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{1.05in}|}
+\hline
+\textbf{Gate stage} & \textbf{$P_t$ pressure} & \textbf{$D^R_t$ remediation debt} & \textbf{$D^V_t$ validation debt} & \textbf{$H_t$ qualified capital} & \textbf{$U_t$ allocation} \\
+\hline
+Threat replay & KEV/EPSS/CVSS arrival pressure & Risk-weighted open vulnerabilities & Not yet evaluated & No update & Static, AEC-only, MTD-like, or MDDC budget \\
+\hline
+Candidate generation & Tasks selected from pressure/debt pool & Candidate patch backlog & Generated candidates requiring gates & No update before evidence & Model calls, retrieval, property context \\
+\hline
+Qualification gates & High-risk tasks prioritized & Failed patches remain debt & Apply, static, native, dynamic, semantic, and evidence gaps & Only gate-passing artifacts update $H_q(t)$ & Ordered gate policy and abstention \\
+\hline
+Rule/oracle admission & Patch/API context converted to rule pressure & Uncovered tasks remain remediation debt & Vacuous, patch-pattern, or under-specified rules remain validation debt & Structural ASR candidates; objective semantic/oracle-admitted subset & Objective semantic gate, oracle construction, expert-calibration target \\
+\hline
+Deployment boundary & Same task pressure under all gates & Unfixed tasks remain open & Native/dynamic failures recorded & Deployment capital only when full chain passes; one recovered-native existence case is separated from rate claims & Fallback or abstain instead of activation \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\section{Empirical Results}
+\subsection{RQ1: Can Context Become Qualified Capital?}
+Partially, and only after contraction through gates. Property capital has the desired accumulation shape, with 86.9\% held-out coverage and a concave accumulation curve in the property-capital audit. Yet early property-guided delivery remains low. Patch-to-rule experiments show the contraction explicitly: 38 patch contexts become 16 parent/upstream-qualified predicates, and the current machine-assisted semantic gate reduces them further to one reusable-invariant candidate, with six additional abstraction candidates. This is the accounting result the method is designed to expose, not a claim that independent semantic capital has already been fully established.
+
+The ASRDataset/VulGenie line gives the strongest rule-capital evidence. Across all 131 ASR tasks, 112 pass the structural candidate-rule gate and 108 pass the stricter exact-RuleID gate. A deterministic non-LLM semantic-proxy gate admits 57/131 tasks under strict RuleID agreement and exact security-comment token overlap, with Wilson 95\% CI 0.353--0.521. A context-enriched blind packet first admitted 11/15 rules under strict API/category/checkability/context predicates, with shuffled negative controls admitting 0. The full objective gate then admits 99/131 rules, with Wilson 95\% CI 0.676--0.821. Balanced and lenient gates admit 107/131 and 110/131 as candidate-pool sensitivities. In 5,000 same-category different-rule control trials, the strict gate admits 0 controls, whereas the balanced gate admits a mean of 22.685 and a maximum of 35 close non-matches. The strict gate is therefore a conservative $H_q(t)$ operating point, while balanced and lenient gates remain screening evidence. Post-hoc agreement with the earlier 36-row paid semantic audit is 29/36, but those labels are not used by the gate.
+
+The CVEfixes replication tests whether the gate-accounting pattern is an ASRDataset artifact. On 12,668 public vulnerability-fixing pairs, a structural-only baseline admits 10,302 reference-agreeing pairs but also admits 82.2\% of same-category different-CVE controls. The strict MDDC gate admits 6,240 reference-agreeing pairs, with Wilson 95\% CI 0.484--0.501, and admits 13.8\% of same-category controls. This reduces false admissions by 83.2\% relative to the structural baseline. The result is deliberately limited to patch-context benchmark agreement, but it supports the method claim that explicit qualification reduces false capital outside ASRDataset.
+
+The third-dataset replication uses BigVul. On 4,432 BigVul vulnerable/fixed pairs, structural-only admission accepts 93.0\% of reference-agreeing pairs but also accepts almost all same-category different-CVE controls. The strict MDDC gate accepts 2,247 reference-agreeing pairs, with Wilson 95\% CI 0.492--0.522, and reduces same-category false admissions by 85.8\% relative to structural-only. This matters because BigVul uses C/C++ function-level vulnerability context rather than ASR rule XML or CVEfixes commit records. It supports the portability of the accounting principle, while still remaining patch-context evidence rather than deployment evidence.
+
+The high BigVul structural-control rate is not used as a strawman success condition. It exposes the weakness of a common proxy: treating the existence of a parsable vulnerability/fix pair, a CVE/CWE label, and changed code as reusable capital. BigVul same-category controls are deliberately hard negatives, because they share broad vulnerability classes and C/C++ patch structure with true pairs. Structural-only therefore admits nearly all controls. The strict gate adds category consistency and token-level patch-context support, which lowers false admission but also sacrifices recall. The comparison shows the tradeoff between artifact availability and qualified admission; it does not claim that structural-only is a deployable baseline.
+
+The patch-differential oracle check tests the stronger claim that strict ASR admissions behave like executable change predicates. The result is mixed: 55/99 strict admissions validate, with Wilson 95\% CI 0.457--0.650, but cross-category controls still validate at 15.1\% on average. This is why the oracle check is treated as a boundary result. It shows that objective admission is valuable for screening and accounting, but the current patch-differential surrogate is not strong enough to license a deployment mini-trial.
+
+The context-to-oracle pilot reaches the same conclusion from another direction. CVE-only context yields 0/15 qualified oracles. Adding patch context gives many parent/upstream-discriminating predicates, but code-slice review and vacuity filtering are needed. The strongest pilot arm, CVE plus patch plus code slice, gives 11/15 qualified exact-diff oracle candidates. These are useful measurement artifacts, not full security proofs.
+
+Fig.~\ref{fig:evidence_atlas} condenses the main empirical chain. The first row shows why naive repair metrics and structural admission overstate qualified capital. The second row shows the cross-dataset and control-policy boundary: BigVul confirms the false-admission reduction pattern, utility gates avoid confidence-driven debt, and the activation frontier explains why low-yield CEC should fall back to AEC-only.
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.96\textwidth]{fig_mddc_evidence_atlas.pdf}
+\caption{MDDC evidence atlas. The panels aggregate the main evidence chain rather than reporting a single favorable endpoint: (a) repository applicability inflates qualified repair delivery, (b) ASR rule admission contracts through stricter gates, (c) CVEfixes false admissions fall under strict admission, (d) BigVul shows the recall/false-admission tradeoff, (e) utility gates avoid confidence- and score-only false capital, and (f) current CEC gain remains below the calibrated activation frontier.}
+\label{fig:evidence_atlas}
+\end{figure*}
+
+\begin{table*}[!t]
+\caption{Condensed evidence map for knowledge admission}
+\label{tab:condensed_evidence_map}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.35in}|>{\raggedright\arraybackslash}p{2.25in}|>{\raggedright\arraybackslash}p{2.7in}|}
+\hline
+\textbf{Evidence group} & \textbf{Main result} & \textbf{Interpretation} \\
+\hline
+Raw patch/RAG reuse & Same-CWE reuse weak; cross-repo RAG often harmful; in-repo/type routing improves applicability but stays below frontier & Raw experience is not qualified capital \\
+\hline
+Metric anti-gaming & Apply-to-static inflation is $4.43\times$; 22/80 missing-evidence cases are abstained & Proxies cannot update $H_q(t)$ \\
+\hline
+Patch-to-rule capital & 38 patch contexts $\rightarrow$ 16 parent/upstream-qualified predicates $\rightarrow$ 1 machine-triaged reusable-invariant candidate plus 6 abstraction candidates & Gates expose the contraction from raw context to capital \\
+\hline
+ASR pre-admission screening & 112/131 structural candidate-rule admits; 108/131 strict exact-RuleID admits. Deterministic exact-comment proxy: 57/131. The full objective gate admits 99/131 under the strict hard-capital gate; balanced/lenient candidate-pool sensitivities are 107/131 and 110/131. Same-category different-rule controls admit 0 under strict, but many close non-matches under balanced & Strict objective qualification is reproducible against public ASRDataset references; looser gates are screening evidence, not hard capital; expert-label calibration remains future work \\
+\hline
+CVEfixes independent replication & Strict gate admits 6240/12668 reference-agreeing patch-context pairs and reduces same-category false admissions by 83.2\% versus structural-only & Qualification-gated accounting is not limited to ASRDataset, but remains benchmark agreement rather than deployment evidence \\
+\hline
+Patch-differential oracle cross-check & 55/99 strict ASR admissions validate under a patch-differential oracle surrogate; Wilson 95\% CI 0.457--0.650; cross-category control false-validation rate 15.1\% & Useful boundary evidence; it prevents overclaiming ASR admission as behavioral correctness and stops the planned deployment mini-trial \\
+\hline
+External baseline comparison & CVSS-only and structural-only same-category false-admission rates are 47.9\% and 82.2\%; strict admission is 13.8\%. Confidence-only and score-only utility baselines produce 57.5\% and 71.4\% false admissions among admitted candidates; the utility gate produces 0 in the measured pool & Direct comparison target for the qualification gate; supports false-capital and validation-debt reduction rather than deployment superiority \\
+\hline
+Operating-curve selection & At fixed-gate recall, strict admission beats risk-score and random admission, but tuned coverage-only has lower same-category false rates. Full operating curves and an 875-combination cost-sensitivity sweep then select coverage-only thresholds under the tested debt-cost regions & QG-DCA must be reported as an admission-accounting method with operating-point tradeoffs, not as an unconditional classifier \\
+\hline
+BigVul cross-dataset replication & Strict gate admits 2247/4432 reference-agreeing pairs, Wilson 95\% CI 0.492--0.522, and reduces same-category false admissions by 85.8\% versus structural-only & Third public dataset replication; supports the accounting method outside Java/ASR and CVEfixes, but remains patch-context evidence \\
+\hline
+Deployment gates & Frozen 30-task run: property guidance obtains 1/30 primary security-qualified delivery and 0/30 original deployment-qualified deliveries; Vanilla obtains 0/30. One exact property-guided candidate later passes all gates under recovered native setup & Existence is shown once; deployment-rate superiority is not shown \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\subsection{RQ2: Why Are Qualification Gates Necessary?}
+Experiments on gate ordering and metric accounting show that naive metrics are unsafe. In 222 generated candidates, 31 apply to the repository but only 7 pass available static security gates. Counting repository applicability as capital would inflate qualified delivery by $4.43\times$ and admit 24 unqualified applicable candidates. In the 80-task upstream audit pool, git replay succeeds for 76 tasks, but only 54 have expanded security evidence. A three-state abstention gate therefore records 54 evidence-backed deliveries, 22 missing-evidence abstentions, and 4 replay rejects.
+
+Gate order also matters. Exhaustive checking wastes validation resources, while apply-only or native-first gates can admit states with no security evidence. MDDC ordered checking prevents unsafe admissions in the held-out gate replay and saves 20 weighted cost units relative to exhaustive checking. The point is not that the current gate order is universal. It is that gate order is measurable and must be part of the defense policy.
+
+The external baseline comparison provides direct comparison targets. On CVEfixes controls, CVSS-only admission has a 47.9\% same-category false-admission rate, and structural-only admission has an 82.2\% false-admission rate. The strict gate reduces this rate to 13.8\%, a 71.2\% reduction relative to CVSS-only and an 83.2\% reduction relative to structural-only. On the utility pool, a Qwen confidence-only policy admits all 80 candidates and produces 57.5 false admissions per 100 admissions; a DeepSeek score-only policy admits fewer candidates but still produces 71.4 false admissions per 100 admissions. The utility gate admits 33 candidates, all true positives under the measured utility label. This does not prove that MDDC is a better patch generator. It proves the narrower claim that qualification gates can reduce false capital admission and validation debt relative to score, confidence, and structural baselines.
+
+The matched-recall and operating-curve analyses then test whether this advantage is only a recall artifact. At the strict gate's true-pair recall, strict admission is much better than risk-score and random admission, but a tuned coverage-only baseline has a lower same-category false-admission rate on both CVEfixes and BigVul. The full operating curve resolves this boundary by changing the claim. QG-DCA is not a fixed strict gate. It is a protocol for exposing candidate operating points, recording the validation-debt cost model, and selecting a point under that model. Fig.~\ref{fig:operating_curve} shows that the declared debt-adjusted objective selects coverage-only thresholds on both CVEfixes and BigVul. Table~\ref{tab:lxxxi_operating_selection} reports the selected points and the fixed strict reference point. This result prevents a stronger classifier claim, but it strengthens the measurement-method claim because the method can reject its own earlier operating point when a simpler policy dominates.
+
+A cost-model sensitivity sweep confirms that this conclusion is not caused by one hand-picked set of constants. We vary false-admission cost over $\{0.5,1,2,3,5,8,13\}$, missed-admission cost over $\{0,0.1,0.25,0.5,1\}$, review-load cost over $\{0,0.02,0.05,0.1,0.2\}$, and the false-admission constraint over $\{0.05,0.10,0.15,0.20,0.30\}$. Across 875 cost models per dataset, coverage-only is selected in 875/875 cases for CVEfixes and 875/875 cases for BigVul; risk-score and category-plus-coverage are selected in 0/875 cases. This does not make coverage-only a universal semantic gate. It means that, for these two proxy-label datasets and these cost ranges, the correct QG-DCA output is to select the simpler lower-debt operating point and record that the fixed strict gate should not be defended as optimal.
+
+\begin{table*}[!t]
+\caption{External baseline comparison for false-capital admission}
+\label{tab:lxxviii_baseline_comparison}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.05in}|>{\raggedright\arraybackslash}p{1.35in}|>{\raggedright\arraybackslash}p{1.25in}|>{\raggedright\arraybackslash}p{1.45in}|>{\raggedright\arraybackslash}p{1.45in}|>{\raggedright\arraybackslash}p{1.4in}|}
+\hline
+\textbf{Benchmark} & \textbf{Policy} & \textbf{Admission volume} & \textbf{True/admitted signal} & \textbf{False-admission signal} & \textbf{Meaning} \\
+\hline
+CVEfixes true pairs & CVSS-only & 6093/12668 & 0.481, Wilson [0.472, 0.490] & Same-category false rate 0.479, trial interval [0.451, 0.504] & Risk score alone is not an artifact-admission gate \\
+\hline
+CVEfixes true pairs & Structural-only & 10302/12668 & 0.813, Wilson [0.806, 0.820] & Same-category false rate 0.822, trial interval [0.801, 0.842] & High recall but high false capital \\
+\hline
+CVEfixes true pairs & MDDC strict gate & 6240/12668 & 0.493, Wilson [0.484, 0.501] & Same-category false rate 0.138, trial interval [0.119, 0.157] & Reduces false admission by 71.2\% vs CVSS-only and 83.2\% vs structural-only \\
+\hline
+Utility pool & Qwen confidence-only & 80/80 admitted & 34 true positives; precision 0.425 & 46/80 false among admitted; Wilson [0.466, 0.677] & Confidence admits many validation-debt candidates \\
+\hline
+Utility pool & DeepSeek score-only & 21/80 admitted & 6 true positives; precision 0.286 & 15/21 false among admitted; Wilson [0.500, 0.862] & Higher score is still not qualification \\
+\hline
+Utility pool & MDDC utility gate & 33/80 admitted & 33 true positives; precision 1.000 & 0/33 false among admitted; Wilson [0.000, 0.104] & Gate evidence controls false capital in the measured pool \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\begin{figure*}[!t]
+\centering
+\includegraphics[width=0.95\textwidth]{fig_experiment_lxxxi_operating_curve_selection.pdf}
+\caption{Operating-curve selection for QG-DCA. The fixed strict gate is one point on the category-plus-coverage curve, not the method itself. Under the declared validation-debt cost model, QG-DCA selects coverage-only thresholds on both CVEfixes and BigVul because they provide higher debt-adjusted utility while satisfying the false-admission constraint.}
+\label{fig:operating_curve}
+\end{figure*}
+
+\begin{table*}[!t]
+\caption{Operating-curve selected points versus fixed strict reference}
+\label{tab:lxxxi_operating_selection}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\textwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{0.85in}|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{1.15in}|>{\raggedright\arraybackslash}p{0.55in}|>{\raggedright\arraybackslash}p{0.55in}|>{\raggedright\arraybackslash}p{0.62in}|>{\raggedright\arraybackslash}p{0.62in}|>{\raggedright\arraybackslash}p{1.7in}|}
+\hline
+\textbf{Dataset} & \textbf{Selection} & \textbf{Policy} & \textbf{Recall} & \textbf{False} & \textbf{Precision} & \textbf{Utility} & \textbf{Interpretation} \\
+\hline
+CVEfixes & QG-DCA selected & Coverage-only, threshold 0.145 & 0.513 & 0.061 & 0.931 & 0.193 & Lower-debt point selected by the declared cost model \\
+\hline
+CVEfixes & Fixed strict reference & Category+coverage, threshold 0.101 & 0.483 & 0.133 & 0.852 & -0.063 & Conservative but dominated under this cost model \\
+\hline
+BigVul & QG-DCA selected & Coverage-only, threshold 0.179 & 0.579 & 0.032 & 0.908 & 0.365 & Lower-debt point selected by the declared cost model \\
+\hline
+BigVul & Fixed strict reference & Category+coverage, threshold 0.098 & 0.507 & 0.142 & 0.663 & -0.057 & Conservative but dominated under this cost model \\
+\hline
+\end{tabular}
+}
+\end{table*}
+
+\subsection{RQ3: Do Raw Patches, RAG, or Stronger Models Cross the Frontier?}
+They do not under the measured gates. Same-CWE patch reuse yields only a weak patch-scope signal. Cross-repository RAG can contaminate context, especially for memory-safety tasks. In-repository retrieval and type-aware routing improve applicability but remain below the required knowledge-gain threshold. Stronger models produce some static-oracle successes, but model scale alone does not solve qualification.
+
+The frozen held-out routing policy reaches 5/14, with Wilson lower bound 0.163, and does not cross either qualification frontier. The frontier calibration makes the boundary explicit: the first positive held-out test frontier is 0.275, and the more conservative validation-period frontier is 0.325. An independent recomputation from saved replay curves gives lower interpolated zero crossings of 0.2535 for test and 0.3167 for validation, so the paper's first-positive grid values are conservative. Current patch reuse has effective gain 0.0392; even the optimistic repository-applicability upper bound is 0.1396. Both are below the activation threshold, so the measured controller should not turn them into CEC capital.
+
+\subsection{RQ4: What Happens Under Real Threat Pressure?}
+The KEV replay is used as a boundary check rather than as the main contribution. It shows that MDDC is not automatically superior under current qualification yield. AEC-only has the lowest observed debt-pressure proxy. The mean proxy is 0.300 for AEC-only, 0.432 for MTD-like switching, 0.477 for MDDC under the current low-yield generation pipeline, and 0.990 for Static defense. This proxy is computed from public replay and validation-debt observables; it is not a production measurement of full management entropy and should not be read as a general operational ranking. The result does not show that AEC-only is universally better. It shows that always-on MDDC is wrong when generated output cannot be admitted fast enough.
+
+This boundary changes the role of MDDC. The policy should not activate because many candidates were generated. It should activate only when qualified yield is high enough to offset validation debt. Otherwise the correct action is fallback, rejection, or abstention. With the property-capital coefficient measured at 0.44498, the calibration estimates that downstream quality must reach $s_{quality}\geq 0.618$ to cross the test frontier and $s_{quality}\geq 0.730$ to cross the conservative validation frontier. Perturbing the property coefficient by $\pm20\%$ moves the validation requirement from 0.609 to 0.913, and observed patch reuse remains below the test frontier even under a +20\% gain perturbation. Rolling-origin, budget, and attack-regime audits show that thresholds move with time and resources; for example, budget-scaled validation thresholds range from 0.275 to 0.375. This turns the negative KEV result into a design rule: below the calibrated frontier, MDDC should protect the system from CEC over-activation.
+
+\subsection{RQ5: Does the Gate Policy Deliver Deployable Repairs?}
+Only at existence level, not as a robust rate claim. The frozen 30-task all-gate run evaluates tasks with static, native, and dynamic gates under the LX admission list. Context-qualified property guidance applies on 24/30 tasks, reaches 3/30 static-safe candidates, 1/30 dynamic-safe candidate, and 1/30 primary security-qualified delivery. The paired Vanilla arm also applies on 24/30 tasks but reaches 0/30 static-safe, 0/30 dynamic-safe, and 0/30 primary security-qualified deliveries. Neither arm reaches the original deployment endpoint in the frozen run because native recovery was not counted post hoc.
+
+The exact property-guided candidate for `LLMCEC-0047` was then re-probed under a documented recovered-native setup. The same candidate passes repository, static, dynamic, and native gates, giving one same-candidate all-gate existence case. This shows that the measurement chain is not vacuous. It does not prove a deployment-rate advantage, because the native recovery was post-hoc and task-specific.
+
+The targeted follow-up on `LLMCEC-0068` gives the opposite boundary: a post-hoc feedback candidate passes repository, static, and dynamic security gates, but pnpm-aware native testing still times out for both parent and candidate. It remains validation-debt evidence, not a second all-gate positive.
+
+An exploratory gate-feedback second attempt over the remaining 29 first-run failures produces 0/29 primary security-qualified and 0/29 deployment-qualified deliveries. This reinforces the core boundary: feedback and richer context do not automatically translate into qualified delivery. MDDC's contribution is that it makes the existence case, the original-rate failure, and the second-attempt failure separately measurable.
+
+\begin{table}[!t]
+\caption{Main positive and negative claims after qualification}
+\label{tab:claims_short}
+\centering
+\scriptsize
+\renewcommand{\arraystretch}{1.15}
+\resizebox{\columnwidth}{!}{%
+\begin{tabular}{|>{\raggedright\arraybackslash}p{1.25in}|>{\raggedright\arraybackslash}p{1.55in}|}
+\hline
+\textbf{Claim} & \textbf{Status} \\
+\hline
+Context can produce candidate defense capital & Supported as gated pre-admission evidence plus sampled objective semantic qualification \\
+\hline
+Structural ASR rule screening scales & Supported by full ASR audit \\
+\hline
+ASR objective semantic qualification & 57/131 exact-comment proxy; 99/131 strict hard-capital admissions; balanced/lenient screening sensitivities 107/131 and 110/131; same-category different-rule controls 0 only for strict \\
+\hline
+CVEfixes independent gate replication & Supported: strict gate admits 6240/12668 reference-agreeing pairs and reduces same-category false admissions by 83.2\% versus structural-only \\
+\hline
+External baselines & Supported for false-admission reduction: strict MDDC reduces CVEfixes same-category false admissions by 71.2\% versus CVSS-only and 83.2\% versus structural-only; utility-gate false admissions are 0 in the measured pool versus 57.5\% and 71.4\% for confidence/score baselines \\
+\hline
+Operating-point superiority & Supported only as accounting selection: fixed strict is dominated by coverage-only under the declared cost model and across the tested cost-sensitivity grid, so QG-DCA selects the lower-debt coverage operating point \\
+\hline
+BigVul third-dataset replication & Supported: strict gate admits 2247/4432 true pairs and reduces same-category false admissions by 85.8\% versus structural-only \\
+\hline
+Patch-differential oracle validation & Boundary: 55/99 strict ASR admissions validate, but cross-category false validation is 15.1\%; not sufficient for deployment mini-trial activation \\
+\hline
+CEC activation boundary & Supported as a reproducible calibration rule: current gains fall below the 0.275/0.325 first-positive frontiers, so AEC-only fallback is selected; sensitivity checks show the values are dataset-calibrated and budget/window-dependent \\
+\hline
+Pre-specified routing crosses frontier & Not supported \\
+\hline
+Deployment-level repair superiority & Not supported; frozen 30-task run is 1/30 primary and 0/30 original deployment; one recovered-native existence case only \\
+\hline
+\end{tabular}
+}
+\end{table}
+
+\section{Discussion}
+The empirical sequence supports a narrower and more defensible paper than the original full version. MDDC is not a proof that LLMs automatically repair vulnerabilities. It is a measurement method that determines when AI security artifacts can be admitted as defense capital and when they must remain validation debt.
+
+\subsection{What MDDC Provides}
+MDDC provides four concrete mechanisms. First, it defines a shared state so threat pressure, remediation debt, validation debt, knowledge capital, and resource allocation can be measured together. Second, it defines a qualification invariant: unqualified generated output cannot update $H_q(t)$. Third, it introduces \textsc{Abstain} as an explicit policy action for missing evidence. Fourth, it turns gate order into a measurable resource-allocation decision.
+
+\subsection{What the Evidence Supports}
+The evidence supports five claims. First, naive admission is unsafe: apply-only metrics and replay-only metrics inflate qualified security delivery. Second, context can produce useful candidate defense objects when it is transformed into checkable forms, but each step loses candidates through qualification. The full ASR audit shows that rule-capital admission can be measured through reproducible predicates rather than subjective author judgment. Third, the external baseline comparison shows that CVSS-only, structural-only, confidence-only, and score-only policies admit substantially more false capital than gated admission. Fourth, the gate-accounting pattern transfers beyond ASRDataset to CVEfixes and BigVul, where strict admission sharply reduces same-category false admissions. Fifth, the matched-recall, operating-curve, and cost-sensitivity analyses show that this is not an unconditional classifier result. Tuned coverage-only baselines can dominate the fixed strict gate on close-control false admission, and QG-DCA should select those lower-debt operating points under the tested cost regions. Thus, QG-DCA's value is the accounting and operating-point discipline, not a claim that one fixed gate is always optimal.
+
+\subsection{What Remains Unproven}
+Four limitations remain. First, the deterministic ASR qualification gate is measured against public ASRDataset ground-truth rules, not a human gold standard; CVEfixes and BigVul are patch-context benchmark-agreement replications rather than human semantic judgments. This is intentional for reproducibility, but it means that future work should calibrate the gates against independent expert labels or stronger executable oracles to estimate semantic error rates. Second, the patch-differential oracle surrogate is not strong enough for a deployment mini-trial because it has a non-negligible false-validation rate. Third, the fixed strict gate is not Pareto-optimal once recall and debt costs are reported. A tuned coverage-only filter can have lower close-control false admission, so QG-DCA should be read as a policy-evaluation method that forces operating-point reporting and selection. Fourth, the recovered-native all-gate result is one post-hoc existence case, not a pre-registered deployment-rate result; the `LLMCEC-0068` diagnosis remains a native-test-debt boundary case rather than a second positive. The debt-pressure proxy is also a replay metric over public data and validation-debt logs, not a production measurement of full management entropy.
+
+\subsection{Threats to Validity}
+Construct validity is the main threat. ASR, CVEfixes, and BigVul gates measure benchmark agreement and conservative admission, not human semantic truth. The patch-differential oracle check strengthens this warning by showing that a surrogate oracle can still admit false validations. The operating-curve and cost-sensitivity analyses add a second warning: lower false admission can be obtained by a tuned coverage-only filter across the tested cost grid, so the fixed strict gate is not a universally optimal classifier. This is why the paper avoids claiming absolute rule correctness, deployment readiness, or gate optimality. Internal validity depends on replay assumptions: CISA due dates are remediation windows rather than actual fix times, and the activation frontier depends on the selected gain grid, budget, seed set, and validation window. The threshold audit records input hashes, recomputes the 0.275/0.325 first-positive frontiers, and reports interpolated and sensitivity ranges, but it does not make those values portable constants. External validity is limited by public vulnerability data and open-source repair tasks. Enterprise workflows, proprietary code, and different validation gates would require recalibration. Conclusion validity is limited by deployment evidence: the all-gate result is one recovered-native existence case, not a deployment-rate estimate.
+
+\subsection{Implication for AI Security Systems}
+The main implication is that AI defense needs admission control before acceleration can safely become capability. Stronger generation increases the number of candidate actions. MDDC asks whether those actions reduce risk after validation cost, not whether they look plausible. This distinction is especially important for systems that use LLMs to generate patches, rules, or assertions from rich context.
+
+\section{Conclusion}
+This paper reframes MDDC as a qualification-gated measurement method for context-qualified AI defense actions. Its contribution is the distinction between generated artifacts and admitted defense capital. The experiments show that ordinary patch reuse, cross-repository RAG, and simple generation do not cross the frontier, and that repository applicability can seriously overstate qualified security delivery. They also show a constructive path: context can become candidate property, rule, or oracle capital after explicit gates, and becomes qualified capital only when the required semantic or behavioral evidence is present.
+
+The current evidence supports static-oracle feasibility, scalable rule-capital pre-admission, objective benchmark-based qualification on ASRDataset, false-admission reduction on CVEfixes and BigVul, a yield-threshold activation boundary, and one recovered-native all-gate existence case. It does not support deployment-level superiority. It also shows that the fixed strict gate is not Pareto-optimal: operating-curve and cost-sensitivity analyses select tuned coverage-only thresholds with lower validation-debt cost. This boundary is not a weakness to hide. It is the main systems lesson. AI defense should not count generated artifacts as capability until they pass the gates required for their intended use, and it should not activate CEC paths when qualified yield remains below the frontier. QG-DCA makes these tradeoffs visible by requiring each admission policy to report recall, false admission, validation debt, cost sensitivity, and deployment boundary separately.
+
+\textit{Artifact availability.} The project repository contains replay scripts, prompt templates, oracle registries, result tables, figures, and the full archival manuscript. The threshold audit records hashes for the replay curves used to reproduce the 0.275/0.325 frontiers. A DOI-ready QG-DCA reproducibility package has been prepared with scripts, result tables, figures, experiment reports, pre-registration notes, data metadata, an MIT license, a checksum manifest, and Zenodo metadata. The package manifest records checksums for packaged files; the final archive hash should be reported in the public release record. Before submission, this package should be uploaded to a public archive and the assigned DOI should replace this checksum-only reference. The shortened version preserves only the evidence needed for the measurement-paper claim; detailed proofs and chronological experiment logs remain in the full supplement.
+
+
+\begin{thebibliography}{00}
+
+\bibitem{ref1}
+J. P. Farwell and R. Rohozinski, “Stuxnet and the future of cyber war,” \textit{Survival}, vol. 53, no. 1, pp. 23–40, 2011.
+
+\bibitem{ref2}
+N. Perlroth, \textit{This Is How They Tell Me the World Ends: The Cyberweapons Arms Race}. London, UK: Bloomsbury Publishing, 2021.
+
+\bibitem{ref3}
+R. Ross, M. McEvilley, and J. C. Oren, “Engineering Trustworthy Secure Systems,” NIST, Gaithersburg, MD, USA, Special Publication 800-160, vol. 1, rev. 1, Nov. 2022.
+
+\bibitem{ref4}
+R. Anderson, “Why information security is hard-an economic perspective,” in \textit{Proceedings of the 17th Annual Computer Security Applications Conference (ACSAC)}, New Orleans, LA, USA, pp. 358–365, 2001.
+
+\bibitem{ref5}
+J. Wu, \textit{Cyberspace Mimic Defense: Generalized Robust Control and Endogenous Security}. Singapore: Springer Nature, 2020.
+
+\bibitem{ref6}
+P. M. Romer, “Endogenous technological change,” \textit{Journal of Political Economy}, vol. 98, no. 5, pp. S71–S102, 1990.
+
+\bibitem{ref7}
+J. H. Cho, D. P. Sharma, H. Almgren, and S. Xu, “Toward proactive, adaptive defense: A survey on moving target defense,” \textit{IEEE Communications Surveys \& Tutorials}, vol. 22, no. 1, pp. 709–745, 2020.
+
+\bibitem{ref8}
+M. Jafarian, E. Al-Shaer, and Q. Duan, “Openflow random host mutation: Transparent moving target defense using SDN,” in \textit{Proceedings of the 1st Workshop on Hot Topics in Software Defined Networking (HotSDN)}, Helsinki, Finland, pp. 127–132, 2012.
+
+\bibitem{ref9}
+C. Puliafito, C. Vallati, E. Mingozzi, G. Merlino, F. Longo, and A. Puliafito, “Container migration in the fog: A performance evaluation,” \textit{Sensors}, vol. 19, no. 7, p. 1488, 2019.
+
+\bibitem{ref10}
+Q. Zhu and T. Ba\c{s}ar, “Game-theoretic methods for robustness, security, and resilience of cyber-physical control systems: Games-in-games principle,” \textit{IEEE Control Systems Magazine}, vol. 35, no. 1, pp. 46–65, 2015.
+
+\bibitem{ref11}
+P. K. Manadhata and J. M. Wing, “An attack surface metric,” \textit{IEEE Transactions on Software Engineering}, vol. 37, no. 3, pp. 371–386, 2011.
+
+\bibitem{ref12}
+J. Wu, “Cyberspace endogenous safety and security development paradigm (in Chinese),” \textit{Scientia Sinica Informationis}, vol. 52, no. 2, pp. 189–204, 2022.
+
+\bibitem{ref13}
+J. Wu, “Cyberspace endogenous safety and security,” \textit{Engineering}, vol. 12, pp. 1–3, Jan. 2022.
+
+\bibitem{ref14}
+Z. Li, G. Cheng, J. Tan, C. Wu, and J. Wu, “ESMD-Flow: An intelligent flow forwarding scheme with endogenous security based on Mimic defense in space-air-ground integrated network,” \textit{China Communications}, vol. 19, no. 1, pp. 40–51, Jan. 2022.
+
+\bibitem{ref15}
+W. Wang, G. Cheng, S. Chen, H. Zhang, and X. Jing, “Security analysis of dynamic heterogeneous redundant system (in Chinese),” \textit{Computer Engineering}, vol. 44, no. 10, pp. 42–50, 2018.
+
+\bibitem{ref16}
+L. Leite, C. Rocha, F. Kon, D. Milojicic, and P. Meirelles, “A survey of DevOps concepts and challenges,” \textit{ACM Computing Surveys}, vol. 52, no. 6, pp. 1–35, 2019.
+
+\bibitem{ref17}
+M. Shahin, M. A. Babar, and L. Zhu, “Continuous integration, delivery and deployment: A systematic review on approaches, tools, challenges and practices,” \textit{IEEE Access}, vol. 5, pp. 3909–3943, 2017.
+
+\bibitem{ref18}
+S. Crane, S. Volckaert, F. Schuster, C. Liebchen, P. Larsen, L. Davi, A. R. Sadeghi, T. Holz, and M. Franz, “It's a TRaP: Table randomized address space protection for mitigating control-flow attacks,” in \textit{Proceedings of the ACM SIGSAC Conference on Computer and Communications Security (CCS)}, Denver, CO, USA, pp. 466–477, 2015.
+
+\bibitem{ref19}
+H. Hu, Z. L. Chua, S. Adrian, P. Saxena, and Z. Liang, “Automatic generation of data-oriented exploits,” in \textit{Proceedings of the 24th USENIX Security Symposium}, Washington, D.C., USA, pp. 201–216, 2015.
+
+\bibitem{ref20}
+L. A. Gordon and M. P. Loeb, “The economics of information security investment,” \textit{ACM Transactions on Information and System Security}, vol. 5, no. 4, pp. 438–457, 2002.
+
+\bibitem{ref21}
+R. B\"ohme and T. Moore, “The iterated weakest link,” \textit{IEEE Security \& Privacy}, vol. 14, no. 1, pp. 81–85, 2016.
+
+\bibitem{ref22}
+A. Laszka, M. Felegyhazi, and L. Buttyan, “A survey of interdependent information security games,” \textit{ACM Computing Surveys}, vol. 47, no. 2, Art. no. 23, 2014.
+
+\bibitem{ref23}
+R. M. Solow, “A contribution to the theory of economic growth,” \textit{The Quarterly Journal of Economics}, vol. 70, no. 1, pp. 65–94, 1956.
+
+\bibitem{ref24}
+W. J. Baumol, “Macroeconomics of unbalanced growth: The anatomy of urban crisis,” \textit{The American Economic Review}, vol. 57, no. 3, pp. 415–426, 1967.
+
+\bibitem{ref25}
+Q. Zhu and T. Ba\c{s}ar, “Robust and resilient control design for cyber-physical systems with an application to power systems,” in \textit{Proceedings of the 50th IEEE Conference on Decision and Control (CDC)}, Orlando, FL, USA, pp. 4066–4071, 2011.
+
+\bibitem{ref26}
+E. M. Hutchins, M. J. Cloppert, and R. M. Amin, “Intelligence-driven computer network defense informed by analysis of adversary campaigns and intrusion kill chains,” \textit{Leading Issues in Information Warfare \& Security Research}, vol. 1, pp. 80–106, 2011.
+
+\bibitem{ref27}
+J. R. Boyd, “The essence of winning and losing,” 1996. Online available: https://www.coljohnboyd.com. Accessed on: Feb. 5, 2026.
+
+\bibitem{ref28}
+B. Strom, A. Applebaum, D. Miller, K. Nickels, C. Pennington, and C. Thomas, “MITRE ATT\&CK: Design and philosophy,” The MITRE Corp., Bedford, MA, USA, Tech. Rep., Mar. 2020.
+
+\bibitem{ref29}
+D. E. Kirk, \textit{Optimal Control Theory: An Introduction}. Mineola, NY, USA: Dover Publications, 2004.
+
+\bibitem{ref30}
+H. K. Khalil, \textit{Nonlinear Systems}, 3rd ed. Upper Saddle River, NJ, USA: Prentice Hall, 2002.
+
+\bibitem{ref31}
+K. Ogata, \textit{Modern Control Engineering}, 5th ed. Upper Saddle River, NJ, USA: Pearson, 2010.
+
+\bibitem{ref32}
+J. D. Sterman, \textit{Business Dynamics: Systems Thinking and Modeling for a Complex World}. New York, NY, USA: McGraw-Hill, 2000.
+
+\bibitem{ref33}
+M. Kermack and A. McKendrick, “A contribution to the mathematical theory of epidemics,” \textit{Proceedings of the Royal Society of London. Series A}, vol. 115, no. 772, pp. 700–721, 1927.
+
+\bibitem{ref34}
+Verizon, “2024 Data Breach Investigations Report (DBIR),” Verizon Enterprise Solutions, Tech. Rep., 2024.
+
+\bibitem{ref35}
+L. Ablon and A. Bogart, “Zero Days, Thousands of Nights: The Life and Times of Zero-Day Vulnerabilities and Their Exploits,” RAND Corp., Santa Monica, CA, USA, Res. Rep. RR-1751, 2017.
+
+\bibitem{ref36}
+Google Cloud, “Accelerate State of DevOps Report 2023,” DORA, Tech. Rep., 2023.
+
+\bibitem{ref37}
+Mandiant, “M-Trends 2024: Special Report,” Mandiant, Tech. Rep., 2024.
+
+\bibitem{ref_wool}
+A. Wool, ``A quantitative study of firewall configuration errors,'' \textit{Computer}, vol. 37, no. 6, pp. 62--67, 2004.
+
+\bibitem{ref_alshaer}
+E. Al-Shaer and H. Hamed, ``Discovery of policy anomalies in distributed firewalls,'' in \textit{Proceedings of IEEE INFOCOM}, vol. 4, pp. 2605--2616, 2004.
+
+\bibitem{ref38}
+H. Pearce, B. Ahmad, B. Tan, B. Dolan-Gavitt, and R. Karri, “Asleep at the keyboard? Assessing the security of GitHub Copilot's code contributions,” in \textit{Proceedings of the 43rd IEEE Symposium on Security and Privacy (S\&P)}, San Francisco, CA, USA, pp. 755–768, 2022.
+
+\bibitem{ref39}
+G. A. N. Al-Sultany, R. Al-Zaidy, and X. Yuan, “Deep learning for cyber security applications: A comprehensive survey,” \textit{IEEE Access}, vol. 10, pp. 104518–104539, 2022.
+
+\bibitem{rw_rl_mtd}
+A. Eghtesad, Y. Vorobeychik, and A. Laszka, “Adversarial deep reinforcement learning based adaptive moving target defense,” in \textit{Proc. Decision and Game Theory for Security (GameSec)}, pp. 58–79, 2020.
+
+\bibitem{rw_deception}
+X. Han, N. Kheir, and D. Balzarotti, “Deception techniques in computer security: A research perspective,” \textit{ACM Comput. Surv.}, vol. 51, no. 4, pp. 1–36, 2018.
+
+\bibitem{rw_devsecops_scan}
+S. Souppaya, M. Morello, and K. Scarfone, “Application container security guide,” NIST Special Publication 800-190, 2017.
+
+\bibitem{rw_cloud_native}
+M. Chandramouli, ``Building Secure Microservices-based Applications Using Service-Mesh Architecture,'' NIST Special Publication 800-204A, National Institute of Standards and Technology, 2022.
+
+\bibitem{rw_zerotrust}
+S. Rose, O. Borchert, S. Mitchell, and S. Connelly, “Zero trust architecture,” NIST Special Publication 800-207, 2020.
+
+\bibitem{rw_supplychain}
+M. Souppaya, J. Morello, and K. Scarfone, ``Securing the Software Supply Chain: Recommended Practices Guide for Developers,'' NIST Special Publication 800-218, National Institute of Standards and Technology, 2022.
+
+\bibitem{ref40}
+IBM Security, “Cost of a Data Breach Report 2023,” IBM Corp., Tech. Rep., 2023.
+
+\bibitem{ref41}
+Kubernetes Authors, “Pod Lifecycle: Container Restart Policy,” 2024. Online available: https://kubernetes.io. Accessed on: Feb. 5, 2026.
+
+\bibitem{ref42}
+CRIU Developers, “CRIU: Checkpoint/Restore In Userspace - Performance Benchmarks,” 2023. Online available: https://criu.org. Accessed on: Feb. 5, 2026.
+
+\bibitem{ref_menzies_defect}
+T. Menzies, J. Greenwald, and A. Frank, ``Data mining static code attributes to learn defect predictors,'' \textit{IEEE Transactions on Software Engineering}, vol. 33, no. 1, pp. 2--13, 2007, doi: 10.1109/TSE.2007.10.
+
+\bibitem{ref_zimmermann_cpdp}
+T. Zimmermann, N. Nagappan, H. Gall, E. Giger, and B. Murphy, ``Cross-project defect prediction: A large scale experiment on data vs. domain,'' in \textit{Proc. Joint Meeting of the European Software Engineering Conf. and ACM SIGSOFT Symp. Foundations of Software Engineering (ESEC/FSE)}, pp. 91--100, 2009, doi: 10.1145/1595696.1595713.
+
+\bibitem{ref_bettenburg_bugreport}
+N. Bettenburg, S. Just, A. Schr\"oter, C. Weiss, R. Premraj, and T. Zimmermann, ``What makes a good bug report?'' in \textit{Proc. ACM SIGSOFT Int. Symp. Foundations of Software Engineering (FSE)}, pp. 308--318, 2008, doi: 10.1145/1453101.1453146.
+
+\bibitem{ref_herzig_misclassification}
+K. Herzig, S. Just, and A. Zeller, ``It's not a bug, it's a feature: How misclassification impacts bug prediction,'' in \textit{Proc. IEEE/ACM Int. Conf. Software Engineering (ICSE)}, pp. 392--401, 2013, doi: 10.1109/ICSE.2013.6606587.
+
+\bibitem{ref_shin_vulnerability_metrics}
+Y. Shin, A. Meneely, L. Williams, and J. A. Osborne, ``Evaluating complexity, code churn, and developer activity metrics as indicators of software vulnerabilities,'' \textit{IEEE Transactions on Software Engineering}, vol. 37, no. 6, pp. 772--787, 2011, doi: 10.1109/TSE.2010.81.
+
+\bibitem{ref_morrison_vpm}
+P. Morrison, K. Herzig, B. Murphy, and L. Williams, ``Challenges with applying vulnerability prediction models,'' in \textit{Proc. Symp. and Bootcamp on the Science of Security (HotSoS)}, Art. no. 4, 2015, doi: 10.1145/2746194.2746198.
+
+\bibitem{ref_nvd}
+National Institute of Standards and Technology, ``National Vulnerability Database: CVE JSON 2.0 Feeds,'' 2026. [Online]. Available: https://nvd.nist.gov/vuln/data-feeds
+
+\bibitem{ref_kev}
+Cybersecurity and Infrastructure Security Agency, ``Known Exploited Vulnerabilities Catalog,'' 2026. [Online]. Available: https://www.cisa.gov/known-exploited-vulnerabilities-catalog
+
+\bibitem{ref_epss}
+FIRST, ``Exploit Prediction Scoring System (EPSS),'' 2026. [Online]. Available: https://www.first.org/epss/
+
+\bibitem{ref_cvefixes}
+G. Bhandari, A. Naseer, and L. Moonen, ``CVEfixes: Automated Collection of Vulnerabilities and Their Fixes from Open-Source Software,'' in \textit{Proc. 17th Int. Conf. Predictive Models and Data Analytics in Software Engineering}, 2021; dataset v1.0.8, Zenodo, 2024, doi: 10.5281/zenodo.13118970.
+
+\bibitem{ref_bigvul}
+J. Fan, Y. Li, S. Wang, and T. N. Nguyen, ``A C/C++ Code Vulnerability Dataset with Code Changes and CVE Summaries,'' in \textit{Proc. IEEE/ACM 17th Int. Conf. Mining Software Repositories (MSR)}, pp. 508--512, 2020, doi: 10.1145/3379597.3387501.
+
+\bibitem{ref_unpatchables}
+H. Asghari, M. van Eeten, A. Bauer, and C. Ganan, ``The Unpatchables: Why Municipalities Persist in Running Vulnerable Hosts,'' in \textit{Proc. USENIX Security Symposium}, 2024.
+
+\bibitem{ref_patchagent}
+Z. Yu, W. Zhang, and Y. Wang, ``PATCHAGENT: A Practical Program Repair Agent Mimicking Human Patch Strategy,'' in \textit{Proc. USENIX Security Symposium}, 2025.
+
+\bibitem{ref_propertygpt}
+W. Liu, H. Hu, L. Chen, M. Zhang, and T. Liu, ``PropertyGPT: LLM-driven Formal Verification of Smart Contracts through Retrieval-Augmented Property Generation,'' in \textit{Proc. Network and Distributed System Security Symposium (NDSS)}, 2025.
+
+\end{thebibliography}
+
+
+
+\end{document}
+

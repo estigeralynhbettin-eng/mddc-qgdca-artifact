@@ -1,0 +1,169 @@
+{
+  "experiment": "LXXIV CVEfixes independent gate replication",
+  "generated_at": "2026-06-24 11:49:28 +08:00",
+  "random_seed": 20260624,
+  "input": [
+    "/root/mddc/empirical_validation/data/raw/cvefixes/train-00000-of-00003.parquet",
+    "/root/mddc/empirical_validation/data/raw/cvefixes/train-00001-of-00003.parquet",
+    "/root/mddc/empirical_validation/data/raw/cvefixes/train-00002-of-00003.parquet"
+  ],
+  "n_true_pairs": 12668,
+  "token_coverage_threshold": 0.1,
+  "control_trials": 200,
+  "control_pairs_per_trial": 1500,
+  "true_pair_rates": {
+    "structural_only": {
+      "gate": "structural_only",
+      "admitted": 10302,
+      "n": 12668,
+      "rate": 0.8132301862961794,
+      "wilson95": [
+        0.8063489655364714,
+        0.8199214960842318
+      ]
+    },
+    "category_gate": {
+      "gate": "category_gate",
+      "admitted": 8037,
+      "n": 12668,
+      "rate": 0.6344332175560468,
+      "wilson95": [
+        0.6260073366468586,
+        0.6427775918158575
+      ]
+    },
+    "strict_mddc_gate": {
+      "gate": "strict_mddc_gate",
+      "admitted": 6240,
+      "n": 12668,
+      "rate": 0.4925797284496369,
+      "wilson95": [
+        0.4838773459211359,
+        0.5012866098771641
+      ]
+    }
+  },
+  "control_summary": {
+    "any_deranged": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.8134033333333334,
+      "category_gate_mean_rate": 0.36360666666666663,
+      "strict_mddc_gate_mean_rate": 0.06606333333333334,
+      "structural_only_max_admitted": 1259,
+      "category_gate_max_admitted": 589,
+      "strict_mddc_gate_max_admitted": 129,
+      "strict_false_admission_reduction_vs_structural_pct": 91.87815802738288
+    },
+    "cross_category": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.7981466666666667,
+      "category_gate_mean_rate": 0.33748333333333336,
+      "strict_mddc_gate_mean_rate": 0.061206666666666666,
+      "structural_only_max_admitted": 1235,
+      "category_gate_max_admitted": 555,
+      "strict_mddc_gate_max_admitted": 115,
+      "strict_false_admission_reduction_vs_structural_pct": 92.33140107916672
+    },
+    "same_category_different_cve": {
+      "trials": 200,
+      "n_pairs_mean": 1500.0,
+      "structural_only_mean_rate": 0.82222,
+      "category_gate_mean_rate": 0.65224,
+      "strict_mddc_gate_mean_rate": 0.13800666666666667,
+      "structural_only_max_admitted": 1275,
+      "category_gate_max_admitted": 1036,
+      "strict_mddc_gate_max_admitted": 247,
+      "strict_false_admission_reduction_vs_structural_pct": 83.21536004151362
+    }
+  },
+  "by_reference_category": [
+    {
+      "ref_category": "auth_access",
+      "n": 2073,
+      "strict_admitted": 942,
+      "category_admitted": 1145,
+      "strict_rate": 0.4544138929088278
+    },
+    {
+      "ref_category": "command_injection",
+      "n": 985,
+      "strict_admitted": 349,
+      "category_admitted": 468,
+      "strict_rate": 0.35431472081218274
+    },
+    {
+      "ref_category": "crypto_secret",
+      "n": 208,
+      "strict_admitted": 115,
+      "category_admitted": 128,
+      "strict_rate": 0.5528846153846154
+    },
+    {
+      "ref_category": "deserialization",
+      "n": 101,
+      "strict_admitted": 45,
+      "category_admitted": 47,
+      "strict_rate": 0.44554455445544555
+    },
+    {
+      "ref_category": "memory_safety",
+      "n": 2505,
+      "strict_admitted": 1696,
+      "category_admitted": 2051,
+      "strict_rate": 0.6770459081836327
+    },
+    {
+      "ref_category": "other",
+      "n": 320,
+      "strict_admitted": 0,
+      "category_admitted": 0,
+      "strict_rate": 0.0
+    },
+    {
+      "ref_category": "path_traversal",
+      "n": 1728,
+      "strict_admitted": 799,
+      "category_admitted": 1003,
+      "strict_rate": 0.46238425925925924
+    },
+    {
+      "ref_category": "resource_dos",
+      "n": 1102,
+      "strict_admitted": 568,
+      "category_admitted": 671,
+      "strict_rate": 0.515426497277677
+    },
+    {
+      "ref_category": "sql_injection",
+      "n": 689,
+      "strict_admitted": 248,
+      "category_admitted": 397,
+      "strict_rate": 0.3599419448476052
+    },
+    {
+      "ref_category": "ssrf_redirect",
+      "n": 399,
+      "strict_admitted": 211,
+      "category_admitted": 283,
+      "strict_rate": 0.5288220551378446
+    },
+    {
+      "ref_category": "xss",
+      "n": 2405,
+      "strict_admitted": 1204,
+      "category_admitted": 1769,
+      "strict_rate": 0.5006237006237007
+    },
+    {
+      "ref_category": "xxe",
+      "n": 153,
+      "strict_admitted": 63,
+      "category_admitted": 75,
+      "strict_rate": 0.4117647058823529
+    }
+  ],
+  "claim_boundary": "Independent CVEfixes patch-context benchmark-agreement replication; not ASR rule semantic correctness, human labels, or deployment evidence.",
+  "paper_consequence": "Use as an independent replication showing the strict admission pattern reduces false admissions versus structural-only baseline on a non-ASR public dataset."
+}

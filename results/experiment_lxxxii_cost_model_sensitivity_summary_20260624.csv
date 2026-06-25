@@ -1,0 +1,7 @@
+dataset,policy,policy_label,wins,total,share
+BigVul,risk_score,Risk score,0,875,0.0
+BigVul,coverage_only,Coverage only,875,875,1.0
+BigVul,category_plus_coverage,Category+coverage,0,875,0.0
+CVEfixes,risk_score,Risk score,0,875,0.0
+CVEfixes,coverage_only,Coverage only,875,875,1.0
+CVEfixes,category_plus_coverage,Category+coverage,0,875,0.0

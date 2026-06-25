@@ -1,0 +1,9 @@
+dataset,policy,threshold,true_admitted,n_true,true_recall,matched_to_mddc_recall,policy_note
+CVEfixes,mddc_strict_gate,0.1,6240,12668,0.4925797284496369,True,category-consistent token evidence gate
+CVEfixes,risk_score_tuned,6.7,6246,12668,0.4930533628039154,True,CVSS/BigVul score threshold tuned to MDDC recall
+CVEfixes,coverage_only_tuned,0.15,6267,12668,0.4947110830438901,True,token-coverage threshold without category consistency
+CVEfixes,random_at_mddc_recall,0.4925797284496369,6240,12668,0.4925797284496369,True,random admission at the same true-pair recall
+BigVul,mddc_strict_gate,0.1,2247,4432,0.5069945848375451,True,category-consistent token evidence gate
+BigVul,risk_score_tuned,5.1,2217,4432,0.5002256317689531,True,CVSS/BigVul score threshold tuned to MDDC recall
+BigVul,coverage_only_tuned,0.21052631578947367,2262,4432,0.5103790613718412,True,token-coverage threshold without category consistency
+BigVul,random_at_mddc_recall,0.5069945848375451,2247,4432,0.5069945848375451,True,random admission at the same true-pair recall

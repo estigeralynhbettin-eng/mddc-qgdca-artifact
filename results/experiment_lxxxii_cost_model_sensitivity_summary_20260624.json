@@ -1,0 +1,102 @@
+{
+  "experiment": "LXXXII cost-model sensitivity",
+  "generated_at": "2026-06-24 20:01:31 +08:00",
+  "claim_boundary": "Sensitivity over proxy-label operating curves; not semantic truth or deployment evidence.",
+  "source_curves": "/root/mddc/empirical_validation/results/experiment_lxxxi_operating_curve_points_20260624.csv",
+  "grid": {
+    "false_admission_cost": [
+      0.5,
+      1.0,
+      2.0,
+      3.0,
+      5.0,
+      8.0,
+      13.0
+    ],
+    "miss_cost": [
+      0.0,
+      0.1,
+      0.25,
+      0.5,
+      1.0
+    ],
+    "review_cost": [
+      0.0,
+      0.02,
+      0.05,
+      0.1,
+      0.2
+    ],
+    "false_constraint_alpha": [
+      0.05,
+      0.1,
+      0.15,
+      0.2,
+      0.3
+    ]
+  },
+  "base_cost_model": {
+    "false_admission_cost": 3.0,
+    "miss_cost": 0.25,
+    "review_cost": 0.05,
+    "false_constraint_alpha": 0.15
+  },
+  "datasets": {
+    "BigVul": {
+      "total_cost_models": 875,
+      "policy_counts": {
+        "risk_score": 0,
+        "coverage_only": 875,
+        "category_plus_coverage": 0
+      },
+      "policy_share": {
+        "risk_score": 0.0,
+        "coverage_only": 1.0,
+        "category_plus_coverage": 0.0
+      },
+      "base_selection": {
+        "dataset": "BigVul",
+        "false_cost": 3.0,
+        "miss_cost": 0.25,
+        "review_cost": 0.05,
+        "alpha": 0.15,
+        "selected_policy": "coverage_only",
+        "selected_policy_label": "Coverage only",
+        "threshold": 0.1794871794871795,
+        "recall": 0.578971119133574,
+        "false_admission_rate": 0.032375,
+        "precision": 0.9083185840707964,
+        "review_rate": 0.2272361647361647,
+        "utility": 0.3652270906801593
+      }
+    },
+    "CVEfixes": {
+      "total_cost_models": 875,
+      "policy_counts": {
+        "risk_score": 0,
+        "coverage_only": 875,
+        "category_plus_coverage": 0
+      },
+      "policy_share": {
+        "risk_score": 0.0,
+        "coverage_only": 1.0,
+        "category_plus_coverage": 0.0
+      },
+      "base_selection": {
+        "dataset": "CVEfixes",
+        "false_cost": 3.0,
+        "miss_cost": 0.25,
+        "review_cost": 0.05,
+        "alpha": 0.15,
+        "selected_policy": "coverage_only",
+        "selected_policy_label": "Coverage only",
+        "threshold": 0.1451612903225806,
+        "recall": 0.5131828228607515,
+        "false_admission_rate": 0.0605,
+        "precision": 0.9307086614173228,
+        "review_rate": 0.3379620669634217,
+        "utility": 0.19308042522776825
+      }
+    }
+  }
+}

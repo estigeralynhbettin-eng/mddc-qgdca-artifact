@@ -1,0 +1,207 @@
+{
+  "experiment": "LXXXIII Hugging Face external component ablation",
+  "generated_at": "2026-06-24 22:46:06 +08:00",
+  "claim_boundary": "External component ablation over proxy labels and provenance controls; not deployment repair or human semantic truth.",
+  "random_seed": 20260624,
+  "sample": {
+    "positive_pairs": 5954,
+    "same_cwe_negative_pairs": 5954,
+    "cross_cwe_negative_pairs": 5954
+  },
+  "inputs": {
+    "manifest": [
+      {
+        "project": "MDDC",
+        "dataset": "s0u9ata/security-kg",
+        "local_path": "D:\\lunwen\\datasets\\huggingface_security\\mddc\\security-kg",
+        "hf_url": "https://huggingface.co/datasets/s0u9ata/security-kg",
+        "license": "apache-2.0",
+        "hf_rows": "54,701,716",
+        "file_count": 327,
+        "bytes": 998683971,
+        "gib": 0.93,
+        "git_commit": "0d0c97de7ae46602359738ec1a6ed4aea7278770",
+        "lfs_files": 28,
+        "transfer_mode": "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use": "security knowledge graph / ATT&CK-CAPEC-CWE-CVE-EPSS-KEV-GHSA-Sigma-ExploitDB-OSV triples",
+        "downloaded_at": "2026-06-24 Asia/Shanghai"
+      },
+      {
+        "project": "MDDC",
+        "dataset": "hitoshura25/megavul",
+        "local_path": "D:\\lunwen\\datasets\\huggingface_security\\mddc\\megavul",
+        "hf_url": "https://huggingface.co/datasets/hitoshura25/megavul",
+        "license": "gpl-3.0",
+        "hf_rows": "671,797",
+        "file_count": 38,
+        "bytes": 507149993,
+        "gib": 0.472,
+        "git_commit": "dbca97fe510045492baa1592f934ae7b44f8ffe1",
+        "lfs_files": 2,
+        "transfer_mode": "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use": "function-level vulnerability records / CVEfixes-compatible schema",
+        "downloaded_at": "2026-06-24 Asia/Shanghai"
+      },
+      {
+        "project": "MDDC",
+        "dataset": "CIRCL/vulnerability-scores",
+        "local_path": "D:\\lunwen\\datasets\\huggingface_security\\mddc\\vulnerability-scores",
+        "hf_url": "https://huggingface.co/datasets/CIRCL/vulnerability-scores",
+        "license": "cc-by-4.0",
+        "hf_rows": "719,410",
+        "file_count": 38,
+        "bytes": 615695488,
+        "gib": 0.573,
+        "git_commit": "83fa1ee916a8e03479b1abf98b3aa08b99fbfa6e",
+        "lfs_files": 2,
+        "transfer_mode": "proxy fallback via http://127.0.0.1:33210 after direct probe failed",
+        "intended_use": "vulnerability severity and CVSS score records",
+        "downloaded_at": "2026-06-24 Asia/Shanghai"
+      }
+    ],
+    "megavul_valid_rows": 31615,
+    "megavul_unique_cve": 7830,
+    "vulnerability_scores_cve": 716147,
+    "security_kg_cve_feature_subjects": 342020
+  },
+  "cost_model": {
+    "false_admission_cost": 3.0,
+    "miss_cost": 0.25,
+    "review_cost": 0.05,
+    "false_constraint": 0.15
+  },
+  "same_cwe_policy_summary": {
+    "coverage_only": {
+      "threshold": 0.5294117647058824,
+      "true_positive": 5918,
+      "false_admission": 4,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 0.9939536446086664,
+      "false_admission_rate": 0.0006718172657037286,
+      "precision": 0.9993245525160419,
+      "debt_adjusted_utility": 0.9655609674168626,
+      "recall_wilson95": [
+        0.9916410667923226,
+        0.9956292458964432
+      ],
+      "false_rate_wilson95": [
+        0.00026128665499161206,
+        0.0017262551254568466
+      ]
+    },
+    "coverage_plus_kg": {
+      "threshold": 0.585,
+      "true_positive": 5908,
+      "false_admission": 6,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 0.9922741014444071,
+      "false_admission_rate": 0.001007725898555593,
+      "precision": 0.9989854582346973,
+      "debt_adjusted_utility": 0.962487403426268,
+      "recall_wilson95": [
+        0.9897108743688501,
+        0.9942025178415452
+      ],
+      "false_rate_wilson95": [
+        0.00046192908163557604,
+        0.002196996794486984
+      ]
+    },
+    "kg_consistency": {
+      "threshold": 0.9,
+      "true_positive": 1299,
+      "false_admission": 428,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 0.21817265703728586,
+      "false_admission_rate": 0.07188444743029895,
+      "precision": 0.7521713954834974,
+      "debt_adjusted_utility": -0.20018894860597916,
+      "recall_wilson95": [
+        0.20786560594290918,
+        0.22884313778651982
+      ],
+      "false_rate_wilson95": [
+        0.0655959131653937,
+        0.07872505689796419
+      ]
+    },
+    "qgdca_full": {
+      "threshold": 0.33282652727272727,
+      "true_positive": 5954,
+      "false_admission": 0,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 1.0,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "debt_adjusted_utility": 0.975,
+      "recall_wilson95": [
+        0.9993552264108996,
+        0.9999999999999998
+      ],
+      "false_rate_wilson95": [
+        0.0,
+        0.0006447735891002562
+      ]
+    },
+    "qgdca_no_kg": {
+      "threshold": 0.26043536969696973,
+      "true_positive": 5954,
+      "false_admission": 0,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 1.0,
+      "false_admission_rate": 0.0,
+      "precision": 1.0,
+      "debt_adjusted_utility": 0.975,
+      "recall_wilson95": [
+        0.9993552264108996,
+        0.9999999999999998
+      ],
+      "false_rate_wilson95": [
+        0.0,
+        0.0006447735891002562
+      ]
+    },
+    "risk_only": {
+      "threshold": 1.0,
+      "true_positive": 13,
+      "false_admission": 13,
+      "n_true": 5954,
+      "n_negative": 5954,
+      "recall": 0.002183406113537118,
+      "false_admission_rate": 0.002183406113537118,
+      "precision": 0.5,
+      "debt_adjusted_utility": -0.25393013100436684,
+      "recall_wilson95": [
+        0.001276477818775432,
+        0.0037322923922064816
+      ],
+      "false_rate_wilson95": [
+        0.001276477818775432,
+        0.0037322923922064816
+      ]
+    }
+  },
+  "best_same_cwe_policy": {
+    "policy": "qgdca_full",
+    "policy_label": "QG-DCA full",
+    "threshold": 0.33282652727272727,
+    "recall": 1.0,
+    "false_admission_rate": 0.0,
+    "precision": 1.0,
+    "debt_adjusted_utility": 0.975
+  },
+  "outputs": {
+    "pairs_csv": "/root/mddc/empirical_validation/results/experiment_lxxxiii_hf_external_component_pairs_20260624.csv",
+    "curves_csv": "/root/mddc/empirical_validation/results/experiment_lxxxiii_hf_external_component_curves_20260624.csv",
+    "selected_csv": "/root/mddc/empirical_validation/results/experiment_lxxxiii_hf_external_component_selected_20260624.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxxiii_hf_external_component_summary_20260624.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxxiii_hf_external_component_ablation_20260624.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxiii_hf_external_component_ablation.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxiii_hf_external_component_ablation.png"
+  }
+}
