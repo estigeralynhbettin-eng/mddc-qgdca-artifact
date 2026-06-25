@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXXIV: noisy/partial/spoofed provenance stress test.
 
 The LXXXIII result showed that provenance gating removes same-CWE borrowed
@@ -16,6 +16,7 @@ Boundary:
 from __future__ import annotations
 
 import os
+
 import json
 import math
 import shutil
@@ -525,3 +526,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

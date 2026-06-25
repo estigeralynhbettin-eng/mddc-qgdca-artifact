@@ -1,0 +1,120 @@
+{
+  "experiment": "LXXXVII DeepSeek candidate-oracle adversarial calibration",
+  "generated_at": "2026-06-25 11:06:29 +08:00",
+  "model": "deepseek-chat",
+  "sample": {
+    "n_total": 170,
+    "base_cases": 85,
+    "adversarial_cases": 85,
+    "base_expected_positive": 51,
+    "base_expected_negative": 34,
+    "max_cases_env": 0
+  },
+  "metrics": {
+    "json_parse": {
+      "x": 170,
+      "n": 170,
+      "rate": 1.0,
+      "wilson95": [
+        0.9779025161963444,
+        0.9999999999999998
+      ]
+    },
+    "non_vacuous": {
+      "x": 159,
+      "n": 170,
+      "rate": 0.9352941176470588,
+      "wilson95": [
+        0.8878619660687934,
+        0.9634884597962594
+      ]
+    },
+    "base_deepseek_candidate_positive_recall": {
+      "x": 43,
+      "n": 51,
+      "rate": 0.8431372549019608,
+      "wilson95": [
+        0.7198955322701224,
+        0.9183077677995128
+      ]
+    },
+    "base_qgdca_positive_recall": {
+      "x": 43,
+      "n": 51,
+      "rate": 0.8431372549019608,
+      "wilson95": [
+        0.7198955322701224,
+        0.9183077677995128
+      ]
+    },
+    "base_deepseek_only_false_candidate_on_negatives": {
+      "x": 23,
+      "n": 34,
+      "rate": 0.6764705882352942,
+      "wilson95": [
+        0.508428945939082,
+        0.808683564359745
+      ]
+    },
+    "base_qgdca_false_admission_on_negatives": {
+      "x": 0,
+      "n": 34,
+      "rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.10151455415332376
+      ]
+    },
+    "adversarial_deepseek_only_false_candidate": {
+      "x": 39,
+      "n": 85,
+      "rate": 0.4588235294117647,
+      "wilson95": [
+        0.3569713181901941,
+        0.5642366393003748
+      ]
+    },
+    "adversarial_qgdca_false_admission": {
+      "x": 0,
+      "n": 85,
+      "rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.04323948381405149
+      ]
+    },
+    "all_negative_deepseek_only_false_candidate": {
+      "x": 62,
+      "n": 119,
+      "rate": 0.5210084033613446,
+      "wilson95": [
+        0.43200807211287834,
+        0.6086947984651916
+      ]
+    },
+    "all_negative_qgdca_false_admission": {
+      "x": 0,
+      "n": 119,
+      "rate": 0.0,
+      "wilson95": [
+        0.0,
+        0.031271680241939506
+      ]
+    }
+  },
+  "usage": {
+    "api_calls": 170,
+    "successful_calls": 170,
+    "prompt_tokens": 95220,
+    "completion_tokens": 27177,
+    "total_tokens": 122397,
+    "estimated_cost_usd": 0.018062
+  },
+  "claim_boundary": "DeepSeek is only a candidate generator. Admission is decided by objective patch-differential and provenance-consistency surrogate gates. Adversarial rows are constructed mismatched metadata/patch prompts, not independent real vulnerabilities.",
+  "outputs": {
+    "rows_csv": "/root/mddc/empirical_validation/results/experiment_lxxxvii_deepseek_oracle_adversarial_rows_20260625.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxxvii_deepseek_oracle_adversarial_summary_20260625.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxxvii_deepseek_oracle_adversarial_20260625.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxvii_deepseek_oracle_adversarial.pdf"
+  }
+}

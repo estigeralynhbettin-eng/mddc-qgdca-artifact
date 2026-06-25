@@ -17,14 +17,9 @@ import matplotlib.pyplot as plt
 from matplotlib.patches import FancyArrowPatch, FancyBboxPatch
 
 
-PACKAGE_ROOT = Path(__file__).resolve().parents[1]
-ROOT = Path(os.environ.get("MDDC_ROOT", str(PACKAGE_ROOT)))
+ROOT = Path(os.environ.get("MDDC_ROOT", Path(__file__).resolve().parents[1]))
 RESULTS = ROOT / "empirical_validation" / "results"
 FIGURES = ROOT / "empirical_validation" / "figures"
-
-if not RESULTS.exists():
-    RESULTS = PACKAGE_ROOT / "results"
-    FIGURES = PACKAGE_ROOT / "figures"
 
 
 def load_json(name: str) -> dict:

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXXII: cost-model sensitivity for QG-DCA operating-point selection.
 
 LXXXI showed that coverage-only operating points dominate the fixed strict
@@ -10,6 +10,7 @@ policies win as the cost model changes.
 from __future__ import annotations
 
 import os
+
 import json
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
@@ -289,3 +290,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

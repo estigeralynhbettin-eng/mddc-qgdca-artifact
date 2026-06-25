@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXIX: BigVul cross-dataset gate-accounting replication.
 
 This replicates the LXXIV CVEfixes-style qualification gate on BigVul. BigVul
@@ -10,6 +10,7 @@ candidate side.
 from __future__ import annotations
 
 import os
+
 import ast
 import json
 import math
@@ -351,3 +352,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

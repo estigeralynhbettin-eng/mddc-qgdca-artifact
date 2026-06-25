@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXV: yield-threshold activation boundary.
 
 This experiment turns the negative KEV/replay finding into an explicit MDDC
@@ -9,6 +9,7 @@ gain exceeds a data-derived break-even frontier; otherwise fall back to AEC-only
 from __future__ import annotations
 
 import os
+
 import csv
 import json
 import math
@@ -320,3 +321,4 @@ def write_report(summary: dict[str, Any]) -> None:
 
 if __name__ == "__main__":
     main()
+

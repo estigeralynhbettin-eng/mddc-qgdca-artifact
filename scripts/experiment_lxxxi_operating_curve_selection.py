@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXXI: operating-curve and debt-adjusted selection.
 
 This experiment addresses the LXXX boundary: a tuned coverage-only baseline can
@@ -13,6 +13,7 @@ curves for CVEfixes and BigVul using public/frozen data only.
 from __future__ import annotations
 
 import os
+
 import json
 import math
 import random
@@ -343,3 +344,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

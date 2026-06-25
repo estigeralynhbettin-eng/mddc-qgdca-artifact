@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXX: matched-recall and cost-aware baseline comparison.
 
 Claude Opus 4.8 flagged that the existing false-admission comparisons could be
@@ -13,6 +13,7 @@ not a deployment or human semantic validation experiment.
 from __future__ import annotations
 
 import os
+
 import json
 import math
 import random
@@ -483,3 +484,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

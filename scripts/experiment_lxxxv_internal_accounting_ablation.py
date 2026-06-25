@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXXV: internal QG-DCA accounting-component ablation.
 
 This script answers a reviewer-level question left after LXXXIII/LXXXIV:
@@ -17,6 +17,7 @@ Boundary:
 from __future__ import annotations
 
 import os
+
 import json
 import shutil
 from datetime import datetime, timedelta, timezone
@@ -307,3 +308,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

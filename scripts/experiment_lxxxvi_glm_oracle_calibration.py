@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXXVI: GLM-assisted candidate oracle calibration.
 
 GLM is used only as a candidate oracle generator. The admission decision is made
@@ -30,8 +30,7 @@ import requests
 
 
 ROOT = Path(os.environ.get("MDDC_ROOT", "/root/mddc"))
-ENV_FILE_VALUE = os.environ.get("LLM_API_KEYS_FILE", "")
-ENV_FILE = Path(ENV_FILE_VALUE).expanduser() if ENV_FILE_VALUE else None
+ENV_FILE = Path(os.environ.get("LLM_API_KEYS_FILE", "/mnt/c/Users/PBCDCI/.llm_api_keys.env"))
 RESULTS = ROOT / "empirical_validation" / "results"
 FIGURES = ROOT / "empirical_validation" / "figures"
 REPORTS = ROOT / "review_rounds"
@@ -68,8 +67,8 @@ def now_cst() -> str:
     return datetime.now(timezone(timedelta(hours=8))).strftime("%Y-%m-%d %H:%M:%S +08:00")
 
 
-def load_env_file(path: Path | None) -> None:
-    if path is None or not path.exists():
+def load_env_file(path: Path) -> None:
+    if not path.exists():
         return
     for line in path.read_text(encoding="utf-8", errors="replace").splitlines():
         stripped = line.strip()
@@ -492,7 +491,7 @@ def write_reproduce() -> None:
         "",
         "Requires:",
         "",
-        "- `GLM_API_KEY` in the local environment, or `LLM_API_KEYS_FILE` pointing to a local env file.",
+        "- `GLM_API_KEY` in the local environment or `/mnt/c/Users/PBCDCI/.llm_api_keys.env`.",
         "- `/root/mddc/empirical_validation/results/experiment_lxxvii_patch_differential_oracle_rows_20260624.csv`.",
         "- cached patch files referenced by `patch_cache_path`.",
         "",
@@ -588,3 +587,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXVII: patch-differential oracle cross-check for ASR gates.
 
 This experiment is deliberately objective and reproducible. ASRDataset provides
@@ -16,6 +16,7 @@ It does not claim full Semgrep execution over checked-out repositories.
 from __future__ import annotations
 
 import os
+
 import hashlib
 import json
 import math
@@ -599,3 +600,4 @@ def main() -> int:
 
 if __name__ == "__main__":
     raise SystemExit(main())
+

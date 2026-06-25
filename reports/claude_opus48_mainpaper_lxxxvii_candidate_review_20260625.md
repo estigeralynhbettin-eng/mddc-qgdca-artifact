@@ -1,0 +1,133 @@
+# Claude Opus 4.8 LXXXVII Candidate Review
+
+- Provider/model: `anthropic` / `claude-opus-4-8`
+- Estimated cost USD: `0.225405`
+- Wall seconds: `52.27`
+- Attempt: `1`
+
+## Parsed
+
+```json
+{
+  "available": true,
+  "should_promote_lxxxvii_candidate_to_stable": true,
+  "lxxxvii_improves_acceptance_odds": true,
+  "does_direct_sci_probability_reach_40": false,
+  "recommended_venue_tier": "SCI_Q2",
+  "direct_sci_acceptance_probability_0_to_100": 31,
+  "sci_major_revision_or_better_probability_0_to_100": 78,
+  "post_revision_sci_acceptance_probability_0_to_100": 61,
+  "tifs_or_top_journal_probability_0_to_100": 9,
+  "delta_vs_lxxxvi_review": {
+    "direct_sci_acceptance_probability": 2,
+    "sci_major_revision_or_better_probability": 2,
+    "post_revision_sci_acceptance_probability": 2,
+    "tifs_or_top_journal_probability": 0
+  },
+  "verdict_if_submitted_now": "major_revision",
+  "main_reason_for_change": "LXXXVII is a correctly-scoped, guardrail-compliant strengthening: it adds a second independent generator (deepseek-chat) at a materially larger n (170 vs 40), adds a genuine adversarial arm (85 constructed metadata/patch mismatch rows), and shows that the objective admission gate holds the false-admission rate at 0 with a tight Wilson upper bound (0/119 all-negative, UB 0.031; 0/85 adversarial, UB 0.043) while the candidate-only gate fails on roughly half of negatives. This materially tightens the model-agnosticism and adversarial-robustness claims that LXXXVI could only assert anecdotally at n=40, so it justifies a +2 nudge. However it does NOT touch either dominant blocker: the public DOI is still unminted (artifact-availability text still says 'before submission... replace this checksum-only reference'), and the admission evidence remains patch-differential/provenance surrogate agreement rather than executable or human-semantic ground truth. The adversarial rows are also self-constructed mismatches, not independent real vulnerabilities, so a strict reviewer reads the 0/85 partly as a property of the gate definition. Hence direct SCI stays below 40%.",
+  "risks_if_promoted": [
+    "The 0/85 adversarial and 0/119 all-negative false-admission results are partly definitional: the patch-differential/provenance gate rejects constructed mismatches because they are constructed to mismatch, so a skeptic reads this as re-demonstrating gate objectivity, not discrimination of hard real negatives.",
+    "Adversarial rows are author-constructed metadata/patch mismatch prompts, not independent real-world hard negatives; a strict reviewer will discount the adversarial-robustness claim until at least some negatives are externally sourced.",
+    "Two LLM candidate-oracle lines (GLM + DeepSeek) now share one combined table and two abstract sentences in an already dense abstract; this raises desk-reject-on-overload and LLM-judge-misread risk at a security journal despite explicit boundary text.",
+    "The base DeepSeek false-candidate rate (23/34 = 0.68) and the all-negative rate (0.52) are prompt- and sample-dependent; a reviewer can argue a better prompt lowers them, making the 'candidate gate is unsafe' contrast look like a prompt-engineering artifact rather than a stable property.",
+    "Construct-validity ceiling is unchanged: this is still surrogate-label agreement, so the second model does not add any semantic-truth or executable-behavior evidence, only breadth."
+  ],
+  "required_edits_before_promotion": [
+    "Correct the combined LXXXVI/LXXXVII table: the DeepSeek 'negative false admit' cell reports 62/119 (all-negative) against a 43/51 base-positive recall, mixing the all-negative pool with the base-positive pool; either split base vs adversarial vs all-negative rows explicitly or label each cell's denominator so the 51/34/85/119 pools are unambiguous.",
+    "State explicitly in the table/caption that 0/85 adversarial and 0/119 all-negative false admission is a property of the objective patch-differential/provenance gate on constructed mismatches, not a discovered DeepSeek capability, mirroring the LXXXIV spoof-rejection wording.",
+    "Add one sentence that the DeepSeek base (0.68) and all-negative (0.52) candidate false rates are prompt- and sample-dependent illustrations of why a candidate gate is not an admission gate, not stable measurements of DeepSeek error.",
+    "Keep LXXXVII as a supplementary artifact and verify no deployment/SOTA/semantic-truth language leaks into the main claims from the DeepSeek result; the current Discussion wording is acceptable but the abstract sentence should name the surrogate-label boundary.",
+    "Report n, model, seed/date, and all four pool denominators (51/34/85/119) in the abstract sentence or its table reference so the larger-n claim is auditable."
+  ],
+  "highest_value_next_actions_to_reach_40_or_more": [
+    "Mint the public Zenodo/figshare DOI and replace the checksum-only placeholder in the artifact-availability paragraph; this remains the single largest unrealized probability-mass mover and its continued absence is the main thing capping direct acceptance below 40%. A real DOI with one-command reproduction would plausibly move direct SCI from ~31% to the high-30s/low-40s by itself.",
+    "Source at least a small set of independent real hard negatives (e.g., same-CWE non-fix commits or real mismatched advisories) for the adversarial arm so the 0 false-admission result is not reducible to 'constructed to mismatch'.",
+    "Calibrate the patch-differential/provenance surrogate itself against a 30-50 case executable or human-labeled oracle and report its semantic error rate with CIs, directly attacking the construct-validity ceiling instead of adding a third surrogate model."
+  ],
+  "highest_value_next_actions_to_reach_50_or_more": [
+    "After DOI, add at least one executable (parent-fails/upstream-passes) oracle arm on 30+ tasks so at least one admission claim rests on behavior rather than diff/provenance agreement, converting the dominant construct-validity caveat into a bounded empirical error rate.",
+    "Replace or augment constructed adversarial rows with independently sourced hard negatives and report the gate's false-admission CI on those real negatives.",
+    "Provide an end-to-end debt-adjusted utility comparison that folds the DeepSeek/GLM candidate stage and the 0.249 provenance-abstention cost into the selected operating point, showing the accounting changes a real cost-sensitive policy decision.",
+    "Compress to 2-3 headline numbers and move both LLM candidate-oracle audits fully to the supplement so editors locate the contribution quickly and density/LLM-judge-misread risk drops."
+  ],
+  "one_sentence_verdict": "Promote LXXXVII as a correctly-scoped, larger-n, adversarial strengthening of the model-agnostic generation-vs-admission claim, but it only nudges direct SCI acceptance from ~29% to ~31% and does not reach 40% because the public DOI is still unminted and all admission evidence remains patch-differential/provenance surrogate agreement on partly self-constructed negatives rather than executable or human-semantic ground truth."
+}
+```
+
+## Raw Review
+
+```json
+{
+  "available": true,
+  "should_promote_lxxxvii_candidate_to_stable": true,
+  "lxxxvii_improves_acceptance_odds": true,
+  "does_direct_sci_probability_reach_40": false,
+  "recommended_venue_tier": "SCI_Q2",
+  "direct_sci_acceptance_probability_0_to_100": 31,
+  "sci_major_revision_or_better_probability_0_to_100": 78,
+  "post_revision_sci_acceptance_probability_0_to_100": 61,
+  "tifs_or_top_journal_probability_0_to_100": 9,
+  "delta_vs_lxxxvi_review": {
+    "direct_sci_acceptance_probability": 2,
+    "sci_major_revision_or_better_probability": 2,
+    "post_revision_sci_acceptance_probability": 2,
+    "tifs_or_top_journal_probability": 0
+  },
+  "verdict_if_submitted_now": "major_revision",
+  "main_reason_for_change": "LXXXVII is a correctly-scoped, guardrail-compliant strengthening: it adds a second independent generator (deepseek-chat) at a materially larger n (170 vs 40), adds a genuine adversarial arm (85 constructed metadata/patch mismatch rows), and shows that the objective admission gate holds the false-admission rate at 0 with a tight Wilson upper bound (0/119 all-negative, UB 0.031; 0/85 adversarial, UB 0.043) while the candidate-only gate fails on roughly half of negatives. This materially tightens the model-agnosticism and adversarial-robustness claims that LXXXVI could only assert anecdotally at n=40, so it justifies a +2 nudge. However it does NOT touch either dominant blocker: the public DOI is still unminted (artifact-availability text still says 'before submission... replace this checksum-only reference'), and the admission evidence remains patch-differential/provenance surrogate agreement rather than executable or human-semantic ground truth. The adversarial rows are also self-constructed mismatches, not independent real vulnerabilities, so a strict reviewer reads the 0/85 partly as a property of the gate definition. Hence direct SCI stays below 40%.",
+  "risks_if_promoted": [
+    "The 0/85 adversarial and 0/119 all-negative false-admission results are partly definitional: the patch-differential/provenance gate rejects constructed mismatches because they are constructed to mismatch, so a skeptic reads this as re-demonstrating gate objectivity, not discrimination of hard real negatives.",
+    "Adversarial rows are author-constructed metadata/patch mismatch prompts, not independent real-world hard negatives; a strict reviewer will discount the adversarial-robustness claim until at least some negatives are externally sourced.",
+    "Two LLM candidate-oracle lines (GLM + DeepSeek) now share one combined table and two abstract sentences in an already dense abstract; this raises desk-reject-on-overload and LLM-judge-misread risk at a security journal despite explicit boundary text.",
+    "The base DeepSeek false-candidate rate (23/34 = 0.68) and the all-negative rate (0.52) are prompt- and sample-dependent; a reviewer can argue a better prompt lowers them, making the 'candidate gate is unsafe' contrast look like a prompt-engineering artifact rather than a stable property.",
+    "Construct-validity ceiling is unchanged: this is still surrogate-label agreement, so the second model does not add any semantic-truth or executable-behavior evidence, only breadth."
+  ],
+  "required_edits_before_promotion": [
+    "Correct the combined LXXXVI/LXXXVII table: the DeepSeek 'negative false admit' cell reports 62/119 (all-negative) against a 43/51 base-positive recall, mixing the all-negative pool with the base-positive pool; either split base vs adversarial vs all-negative rows explicitly or label each cell's denominator so the 51/34/85/119 pools are unambiguous.",
+    "State explicitly in the table/caption that 0/85 adversarial and 0/119 all-negative false admission is a property of the objective patch-differential/provenance gate on constructed mismatches, not a discovered DeepSeek capability, mirroring the LXXXIV spoof-rejection wording.",
+    "Add one sentence that the DeepSeek base (0.68) and all-negative (0.52) candidate false rates are prompt- and sample-dependent illustrations of why a candidate gate is not an admission gate, not stable measurements of DeepSeek error.",
+    "Keep LXXXVII as a supplementary artifact and verify no deployment/SOTA/semantic-truth language leaks into the main claims from the DeepSeek result; the current Discussion wording is acceptable but the abstract sentence should name the surrogate-label boundary.",
+    "Report n, model, seed/date, and all four pool denominators (51/34/85/119) in the abstract sentence or its table reference so the larger-n claim is auditable."
+  ],
+  "highest_value_next_actions_to_reach_40_or_more": [
+    "Mint the public Zenodo/figshare DOI and replace the checksum-only placeholder in the artifact-availability paragraph; this remains the single largest unrealized probability-mass mover and its continued absence is the main thing capping direct acceptance below 40%. A real DOI with one-command reproduction would plausibly move direct SCI from ~31% to the high-30s/low-40s by itself.",
+    "Source at least a small set of independent real hard negatives (e.g., same-CWE non-fix commits or real mismatched advisories) for the adversarial arm so the 0 false-admission result is not reducible to 'constructed to mismatch'.",
+    "Calibrate the patch-differential/provenance surrogate itself against a 30-50 case executable or human-labeled oracle and report its semantic error rate with CIs, directly attacking the construct-validity ceiling instead of adding a third surrogate model."
+  ],
+  "highest_value_next_actions_to_reach_50_or_more": [
+    "After DOI, add at least one executable (parent-fails/upstream-passes) oracle arm on 30+ tasks so at least one admission claim rests on behavior rather than diff/provenance agreement, converting the dominant construct-validity caveat into a bounded empirical error rate.",
+    "Replace or augment constructed adversarial rows with independently sourced hard negatives and report the gate's false-admission CI on those real negatives.",
+    "Provide an end-to-end debt-adjusted utility comparison that folds the DeepSeek/GLM candidate stage and the 0.249 provenance-abstention cost into the selected operating point, showing the accounting changes a real cost-sensitive policy decision.",
+    "Compress to 2-3 headline numbers and move both LLM candidate-oracle audits fully to the supplement so editors locate the contribution quickly and density/LLM-judge-misread risk drops."
+  ],
+  "one_sentence_verdict": "Promote LXXXVII as a correctly-scoped, larger-n, adversarial strengthening of the model-agnostic generation-vs-admission claim, but it only nudges direct SCI acceptance from ~29% to ~31% and does not reach 40% because the public DOI is still unminted and all admission evidence remains patch-differential/provenance surrogate agreement on partly self-constructed negatives rather than executable or human-semantic ground truth."
+}
+```
+
+# 中文评审意见（严格）
+
+## 总体判断
+
+LXXXVII 是一次**范围正确、合规**的增量强化，应当提升为 stable，但它**不能**把直接 SCI 录用概率推过 40%。当前估计为 **31%**（较 LXXXVI 的 29% 仅 +2）。
+
+## LXXXVII 的真实贡献
+
+1. **第二个独立生成器**（deepseek-chat），证明"生成器/准入分离"不是 glm-4.7 的伪影。
+2. **样本量实质提升**（n=170 vs 40），Wilson 区间显著收紧：全负样本 0/119（上界 0.031）、对抗 0/85（上界 0.043）。
+3. **增加了对抗臂**（85 条构造的元数据/补丁不匹配行），而候选门在全负池仍误纳约一半（62/119=0.52）。
+
+这把 LXXXVI 只能轶事性断言的"模型无关性 + 对抗稳健性"变成了统计上可辩护的结论，因此值得 +2。
+
+## 仍然封死 40% 的两个主因（与前轮相同）
+
+1. **公共 DOI 仍未铸造。** Artifact-availability 段落仍写"提交前应上传……替换 checksum-only 占位符"。这是**最大的未兑现概率质量**。仅此一项若兑现（真实 Zenodo/figshare DOI + 一键复现），很可能单独把直接 SCI 从 ~31% 推到 **30 末段至 40 出头**。**可以明确说：单独补上公共 DOI 很可能跨过 40%。**
+2. **构念效度天花板未动。** 所有准入证据仍是补丁差分/溯源**代理标签**一致性，不是可执行或人类语义真值。第二个模型只增加广度，不增加语义真值。
+
+## 必须修正的具体问题（提升前）
+
+- **合并表 `tab:lxxxvi_glm_oracle_calibration` 存在分母混淆**：DeepSeek 行把 43/51（base 正例召回）与 62/119（全负误纳）并列，把 base-positive 池与 all-negative 池混在一行。必须**显式拆分 base / adversarial / all-negative 行**，或在每个单元格标注分母（51/34/85/119），否则审稿人会判为数据呈现错误。
+- 在表注中明确：0/85 与 0/119 是**客观门在构造性不匹配上的性质**，不是 DeepSeek 的被发现能力（对齐 LXXXIV spoof 措辞），以堵"近乎定义性"的反驳。
+- 补一句：DeepSeek base(0.68)/all-neg(0.52) 候选误纳率是 prompt 与样本依赖的**示例**，不是
+
+Document generated: 2026-06-25 12:15 +08:00

@@ -1,4 +1,4 @@
-#!/usr/bin/env python3
+﻿#!/usr/bin/env python3
 """Experiment LXXVI: threshold sensitivity and calibration audit.
 
 The 0.275 and 0.325 frontiers are dataset-calibrated values from the current
@@ -10,6 +10,7 @@ under rolling windows, attack regimes, budget scales, and q_capital perturbation
 from __future__ import annotations
 
 import os
+
 import hashlib
 import json
 import math
@@ -439,3 +440,4 @@ def write_report(summary: dict[str, Any], table: pd.DataFrame, q_table: pd.DataF
 
 if __name__ == "__main__":
     raise SystemExit(main())
+
