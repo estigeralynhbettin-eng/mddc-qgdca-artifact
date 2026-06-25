@@ -99,8 +99,9 @@ This artifact has a public Zenodo archive. Use the LXXXVII version DOI when
 citing the manuscript version that relies on the DeepSeek adversarial
 calibration:
 
-- LXXXVII version DOI: <https://doi.org/10.5281/zenodo.20839409>
+- LXXXVII.1 version DOI: <https://doi.org/10.5281/zenodo.20839576>
 - Concept DOI for all versions: <https://doi.org/10.5281/zenodo.20838868>
+- LXXXVII first version DOI: <https://doi.org/10.5281/zenodo.20839409>
 - First archived version DOI: <https://doi.org/10.5281/zenodo.20838869>
 
 The current local package includes the LXXXVII DeepSeek adversarial calibration

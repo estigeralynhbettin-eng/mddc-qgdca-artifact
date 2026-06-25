@@ -1,9 +1,9 @@
 cff-version: 1.2.0
-message: "If you use the LXXXVII artifact, cite Zenodo version DOI 10.5281/zenodo.20839409; the all-version concept DOI is 10.5281/zenodo.20838868."
+message: "If you use the LXXXVII.1 artifact, cite Zenodo version DOI 10.5281/zenodo.20839576; the all-version concept DOI is 10.5281/zenodo.20838868."
 title: "MDDC QG-DCA Reproducibility Package: Qualification-Gated Defense-Capital Accounting for Context-Qualified AI Security"
 version: "2026-06-25-lxxxvii"
 date-released: 2026-06-25
-doi: 10.5281/zenodo.20839409
+doi: 10.5281/zenodo.20839576
 license: MIT
 repository-code: "https://github.com/estigeralynhbettin-eng/mddc-qgdca-artifact"
 authors:
