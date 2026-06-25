@@ -102,10 +102,11 @@ The LXXXVII addition repeats the candidate/admission separation with DeepSeek-ch
 
 This artifact has a public Zenodo archive. Use the latest listed version DOI when citing the manuscript version that relies on the executable-oracle anchor and admission-oracle alignment:
 
-- LXXXVIII public version DOI currently pinned by the manuscript: <https://doi.org/10.5281/zenodo.20839725>
+- LXXXIX version DOI currently pinned by the manuscript: <https://doi.org/10.5281/zenodo.20840200>
 - Concept DOI for all versions: <https://doi.org/10.5281/zenodo.20838868>
+- LXXXVIII version DOI: <https://doi.org/10.5281/zenodo.20839725>
 - LXXXVII.1 version DOI: <https://doi.org/10.5281/zenodo.20839576>
 - LXXXVII first version DOI: <https://doi.org/10.5281/zenodo.20839409>
 - First archived version DOI: <https://doi.org/10.5281/zenodo.20838869>
 
-The current local package extends the public LXXXVIII DOI scope with LXXXIX admission-oracle alignment files and should be archived as a new Zenodo/GitHub release before final submission if the submitted manuscript keeps the LXXXIX evidence.
+The current package matches the LXXXIX evidence scope. The version DOI above is the DOI to cite for the manuscript snapshot that includes LXXXIX admission-oracle alignment.

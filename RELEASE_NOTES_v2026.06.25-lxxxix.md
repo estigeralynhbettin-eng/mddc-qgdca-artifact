@@ -2,6 +2,9 @@
 
 This release updates the QG-DCA/MDDC reproducibility artifact to the LXXXIX stable candidate.
 
+Zenodo version DOI: https://doi.org/10.5281/zenodo.20840200
+Concept DOI: https://doi.org/10.5281/zenodo.20838868
+
 ## Added
 
 - LXXXIX admission-oracle alignment audit.
