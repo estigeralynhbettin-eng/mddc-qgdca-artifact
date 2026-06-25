@@ -2,6 +2,10 @@
 
 Generated: 2026-06-25 11:45 +08:00
 
+Archived release DOI: [10.5281/zenodo.20838869](https://doi.org/10.5281/zenodo.20838869)
+
+All-version concept DOI: [10.5281/zenodo.20838868](https://doi.org/10.5281/zenodo.20838868)
+
 This package supports the measurement-paper claim:
 
 > MDDC/QG-DCA is a qualification-gated admission and accounting method for context-qualified AI security artifacts. It measures false security-capital admission and validation debt. It does not claim automatic AI repair or deployment-rate superiority.
@@ -87,7 +91,6 @@ The LXXXVI addition uses GLM only as a candidate security-predicate generator. Q
 
 ## Public Archive Status
 
-This is a DOI-ready artifact package. The GitHub repository should be reviewed
-privately first, then made public and connected to Zenodo/figshare before
-submission. After a public DOI is minted, replace the manuscript placeholder
-with the assigned DOI.
+This artifact is publicly archived on Zenodo. For manuscript citation, use the
+version DOI `10.5281/zenodo.20838869` unless intentionally citing all future
+artifact versions through the concept DOI `10.5281/zenodo.20838868`.
