@@ -8,7 +8,7 @@ This package supports the measurement-paper claim:
 
 ## Contents
 
-- `scripts/`: replay and figure scripts for LXXIV--LXXXVII and the main QG-DCA figures.
+- `scripts/`: replay and figure scripts for LXXIV--LXXXVIII and the main QG-DCA figures.
 - `results/`: CSV/JSON result tables used by the main manuscript.
 - `figures/`: PDF figures generated from the result tables.
 - `reports/`: human-readable experiment reports.
@@ -43,6 +43,7 @@ The script regenerates the late-stage tables and figures used for the QG-DCA evi
   `RUN_HEAVY_HF=1` to rebuild it.
 - Noisy/partial/spoofed provenance stress test.
 - Internal QG-DCA accounting-component ablation.
+- Executable-oracle anchor audit over 23 parent-fails/upstream-passes dynamic tasks.
 - Main QG-DCA schematic and evidence atlas.
 
 The LXXXVI GLM-assisted oracle-calibration experiment is included as a paid/API-dependent optional replay. To rerun it, load `GLM_API_KEY` into the environment and execute:
@@ -85,7 +86,9 @@ Raw third-party datasets are not duplicated here when they are already public. C
 
 ## Reproducibility Boundary
 
-This package reproduces benchmark-agreement, false-admission, threshold-calibration, matched-recall, operating-curve, cost-sensitivity, provenance-stress, GLM/DeepSeek candidate-oracle calibration outputs, and utility-accounting evidence. It does not provide human semantic ground truth and does not reproduce a production deployment. Deployment superiority is not claimed.
+This package reproduces benchmark-agreement, false-admission, threshold-calibration, matched-recall, operating-curve, cost-sensitivity, provenance-stress, executable-oracle anchor, GLM/DeepSeek candidate-oracle calibration outputs, and utility-accounting evidence. It does not provide human semantic ground truth and does not reproduce a production deployment. Deployment superiority is not claimed.
+
+The LXXXVIII executable-oracle anchor audit validates 23 parent-fails/upstream-passes dynamic oracle tasks. It anchors the validation gate in behavior, but it is not repair success or deployment-rate evidence.
 
 The LXXXIV/LXXXV additions are proxy-label accounting stress tests. They support provenance verification, abstention, capital/debt separation, and recalibration claims. They do not establish deployment repair, SOTA repair, or human semantic correctness.
 

@@ -1,0 +1,61 @@
+{
+  "experiment": "LXXXVIII executable-oracle anchor audit",
+  "generated_at": "2026-06-25 13:02:21 +08:00",
+  "source": {
+    "validation_csv": "/root/mddc/empirical_validation/results/experiment_lv_dynamic_oracle_backlog_validation.csv",
+    "validation_sha256": "eda3602c519d36d063d68ce1015ff751ca2681b2a61fa90b4144513303405af2",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lv_dynamic_oracle_backlog_summary.json",
+    "summary_sha256": "82aa80c85e40b10e69e93cc81441e20733c8060d2fd501724c2102a89250ed2f"
+  },
+  "sample": {
+    "task_pairs": 23,
+    "rows": 46,
+    "definition": "A task is an executable oracle anchor only if the parent run is unsafe and the upstream fixed run is safe."
+  },
+  "metrics": {
+    "both_runs_executed": {
+      "x": 23,
+      "n": 23,
+      "rate": 1.0,
+      "wilson95": [
+        0.8568833815495731,
+        1.0
+      ]
+    },
+    "parent_unsafe": {
+      "x": 23,
+      "n": 23,
+      "rate": 1.0,
+      "wilson95": [
+        0.8568833815495731,
+        1.0
+      ]
+    },
+    "upstream_safe": {
+      "x": 23,
+      "n": 23,
+      "rate": 1.0,
+      "wilson95": [
+        0.8568833815495731,
+        1.0
+      ]
+    },
+    "parent_fails_upstream_passes": {
+      "x": 23,
+      "n": 23,
+      "rate": 1.0,
+      "wilson95": [
+        0.8568833815495731,
+        1.0
+      ]
+    }
+  },
+  "claim_boundary": "This is executable oracle validation for parent/upstream contrast, not AI repair success, production deployment, or human semantic labeling.",
+  "outputs": {
+    "tasks_csv": "/root/mddc/empirical_validation/results/experiment_lxxxviii_executable_oracle_anchor_tasks_20260625.csv",
+    "summary_json": "/root/mddc/empirical_validation/results/experiment_lxxxviii_executable_oracle_anchor_summary_20260625.json",
+    "report_md": "/root/mddc/review_rounds/experiment_lxxxviii_executable_oracle_anchor_audit_20260625.md",
+    "figure_pdf": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxviii_executable_oracle_anchor.pdf",
+    "figure_png": "/root/mddc/empirical_validation/figures/fig_experiment_lxxxviii_executable_oracle_anchor.png"
+  }
+}
