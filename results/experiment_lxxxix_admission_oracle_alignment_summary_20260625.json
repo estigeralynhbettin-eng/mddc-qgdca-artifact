@@ -1,0 +1,84 @@
+{
+  "experiment": "LXXXIX_admission_oracle_alignment",
+  "date": "2026-06-25",
+  "input_files": {
+    "/root/mddc/empirical_validation/results/experiment_lx_n30_allgate_admission.csv": "b62f24fc08d0a96149ba2646db66bcba9efe58e3e507438d4dc82454a1591894",
+    "/root/mddc/empirical_validation/results/experiment_lxxxviii_executable_oracle_anchor_tasks_20260625.csv": "774ef19cde4312c47f4a4f8d528c46523c8dc5bad99b4b07b3b87a65352889e5"
+  },
+  "frozen_admission_tasks": 30,
+  "executable_anchored_tasks": 23,
+  "executable_anchor_rate": 0.7666666666666667,
+  "executable_anchor_wilson95": [
+    0.5907167384187784,
+    0.882076118555105
+  ],
+  "unanchored_validation_debt_tasks": 7,
+  "parent_fails_upstream_passes_among_anchored": 23,
+  "parent_fails_upstream_passes_among_anchored_rate": 1.0,
+  "parent_fails_upstream_passes_among_anchored_wilson95": [
+    0.8568833815495732,
+    1.0
+  ],
+  "experiment_lv_validated_subset": {
+    "total": 20,
+    "anchored": 20,
+    "anchored_rate": 1.0,
+    "anchored_wilson95": [
+      0.8388748419471806,
+      1.0
+    ]
+  },
+  "by_dynamic_source": {
+    "experiment_lv_validated": {
+      "total": 20,
+      "anchored": 20,
+      "anchored_rate": 1.0,
+      "anchored_wilson95": [
+        0.8388748419471806,
+        1.0
+      ],
+      "parent_fails_upstream_passes": 20,
+      "parent_fails_upstream_passes_rate": 1.0,
+      "parent_fails_upstream_passes_wilson95": [
+        0.8388748419471806,
+        1.0
+      ]
+    },
+    "heldout_dynamic": {
+      "total": 5,
+      "anchored": 2,
+      "anchored_rate": 0.4,
+      "anchored_wilson95": [
+        0.11762077423264786,
+        0.769275718723987
+      ],
+      "parent_fails_upstream_passes": 2,
+      "parent_fails_upstream_passes_rate": 1.0,
+      "parent_fails_upstream_passes_wilson95": [
+        0.3423802275066531,
+        1.0
+      ]
+    },
+    "quality_dynamic": {
+      "total": 5,
+      "anchored": 1,
+      "anchored_rate": 0.2,
+      "anchored_wilson95": [
+        0.03622410863243013,
+        0.6244653702374747
+      ],
+      "parent_fails_upstream_passes": 1,
+      "parent_fails_upstream_passes_rate": 1.0,
+      "parent_fails_upstream_passes_wilson95": [
+        0.20654931437723742,
+        1.0
+      ]
+    }
+  },
+  "claim_boundary": [
+    "Calibrates dynamic-oracle prerequisites for a frozen admission list.",
+    "Does not prove AI repair success or deployment success.",
+    "Does not validate ASR/CVEfixes/BigVul patch-differential headline rates.",
+    "Unanchored tasks are counted as validation debt under strict behavioral accounting."
+  ]
+}

@@ -8,14 +8,14 @@ This package supports the measurement-paper claim:
 
 ## Contents
 
-- `scripts/`: replay and figure scripts for LXXIV--LXXXVIII and the main QG-DCA figures.
+- `scripts/`: replay and figure scripts for LXXIV--LXXXIX and the main QG-DCA figures.
 - `results/`: CSV/JSON result tables used by the main manuscript.
 - `figures/`: PDF figures generated from the result tables.
 - `reports/`: human-readable experiment reports.
 - `preregistration/`: pre-registration documents for the late-stage experiments where available.
 - `data_metadata/`: public dataset metadata and checksums where available.
 - `manuscript/`: manuscript source/text snapshot associated with this package.
-- `version_control/`: file-based version-control guardrails for the LXXXIII stable baseline, promoted LXXXIV/LXXXV revision, LXXXVI GLM-oracle candidate revision, and LXXXVII DeepSeek adversarial candidate revision.
+- `version_control/`: file-based version-control guardrails for the LXXXIII stable baseline, promoted LXXXIV/LXXXV revision, LXXXVI GLM-oracle candidate revision, LXXXVII DeepSeek adversarial candidate revision, and LXXXVIII/LXXXIX executable-oracle alignment updates.
 
 ## One-Command Reproduction
 
@@ -90,6 +90,8 @@ This package reproduces benchmark-agreement, false-admission, threshold-calibrat
 
 The LXXXVIII executable-oracle anchor audit validates 23 parent-fails/upstream-passes dynamic oracle tasks. It anchors the validation gate in behavior, but it is not repair success or deployment-rate evidence.
 
+The LXXXIX admission-oracle alignment maps those executable anchors onto the frozen 30-task all-gate admission list. It covers 23/30 tasks overall, covers the `experiment_lv_validated` dynamic-oracle prerequisite subset for 20/20 tasks, and records the seven unanchored tasks as validation debt. It does not validate ASRDataset, CVEfixes, or BigVul patch-differential headline rates.
+
 The LXXXIV/LXXXV additions are proxy-label accounting stress tests. They support provenance verification, abstention, capital/debt separation, and recalibration claims. They do not establish deployment repair, SOTA repair, or human semantic correctness.
 
 The LXXXVI addition uses GLM only as a candidate security-predicate generator. Qualification remains controlled by objective patch-differential surrogate gates; it is not an LLM-as-judge experiment.
@@ -98,15 +100,12 @@ The LXXXVII addition repeats the candidate/admission separation with DeepSeek-ch
 
 ## Public Archive Status
 
-This artifact has a public Zenodo archive. Use the LXXXVII version DOI when
-citing the manuscript version that relies on the DeepSeek adversarial
-calibration:
+This artifact has a public Zenodo archive. Use the latest listed version DOI when citing the manuscript version that relies on the executable-oracle anchor and admission-oracle alignment:
 
-- LXXXVIII version DOI: <https://doi.org/10.5281/zenodo.20839725>
+- LXXXVIII public version DOI currently pinned by the manuscript: <https://doi.org/10.5281/zenodo.20839725>
 - Concept DOI for all versions: <https://doi.org/10.5281/zenodo.20838868>
 - LXXXVII.1 version DOI: <https://doi.org/10.5281/zenodo.20839576>
 - LXXXVII first version DOI: <https://doi.org/10.5281/zenodo.20839409>
 - First archived version DOI: <https://doi.org/10.5281/zenodo.20838869>
 
-The current local package includes the LXXXVII DeepSeek adversarial calibration
-extension and matches the evidence scope of the LXXXVII release.
+The current local package extends the public LXXXVIII DOI scope with LXXXIX admission-oracle alignment files and should be archived as a new Zenodo/GitHub release before final submission if the submitted manuscript keeps the LXXXIX evidence.

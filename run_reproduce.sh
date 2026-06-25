@@ -23,6 +23,7 @@ fi
 python3 "$SCRIPT_DIR/scripts/experiment_lxxxiv_provenance_stress_test.py"
 python3 "$SCRIPT_DIR/scripts/experiment_lxxxv_internal_accounting_ablation.py"
 python3 "$SCRIPT_DIR/scripts/experiment_lxxxviii_executable_oracle_anchor_audit.py"
+python3 "$SCRIPT_DIR/scripts/experiment_lxxxix_admission_oracle_alignment.py"
 if [[ "${RUN_PAID_GLM:-0}" == "1" ]]; then
   python3 "$SCRIPT_DIR/scripts/experiment_lxxxvi_glm_oracle_calibration.py"
 else
