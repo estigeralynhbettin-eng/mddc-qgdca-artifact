@@ -95,12 +95,13 @@ The LXXXVII addition repeats the candidate/admission separation with DeepSeek-ch
 
 ## Public Archive Status
 
-This artifact has a public Zenodo archive. Use the version DOI when citing the
-2026-06-25 archived release:
+This artifact has a public Zenodo archive. Use the LXXXVII version DOI when
+citing the manuscript version that relies on the DeepSeek adversarial
+calibration:
 
-- Version DOI: <https://doi.org/10.5281/zenodo.20838869>
+- LXXXVII version DOI: <https://doi.org/10.5281/zenodo.20839409>
 - Concept DOI for all versions: <https://doi.org/10.5281/zenodo.20838868>
+- First archived version DOI: <https://doi.org/10.5281/zenodo.20838869>
 
 The current local package includes the LXXXVII DeepSeek adversarial calibration
-extension. If a new GitHub/Zenodo release is minted after this local update, cite
-that newer version DOI for manuscripts that rely on LXXXVII.
+extension and matches the evidence scope of the LXXXVII release.
